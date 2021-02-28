@@ -15,7 +15,8 @@
   <term name="연체" description="연체일" physicalName="delay"/>
   <term name="대출여부" description="대출여부" physicalName="isRented"/>
   <term name="생년월일" description="생년월일" physicalName="birth"/>
-  <term name="구분" description="구분" physicalName="sort"/>
+  <term name="구분" description="구분" physicalName="category"/>
   <term name="일" physicalName="date"/>
   <term name="권수" physicalName="count"/>
+  <term name="계정" physicalName="account"/>
 </tm:TermDictionary>
