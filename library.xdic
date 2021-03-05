@@ -19,4 +19,6 @@
   <term name="일" physicalName="date"/>
   <term name="권수" physicalName="count"/>
   <term name="계정" physicalName="account"/>
+  <term name="관리자" physicalName="mng"/>
+  <term name="비밀번호" physicalName="passwd"/>
 </tm:TermDictionary>
