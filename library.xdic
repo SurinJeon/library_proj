@@ -21,4 +21,5 @@
   <term name="계정" physicalName="account"/>
   <term name="관리자" physicalName="mng"/>
   <term name="비밀번호" physicalName="passwd"/>
+  <term name="기간" physicalName="range"/>
 </tm:TermDictionary>
