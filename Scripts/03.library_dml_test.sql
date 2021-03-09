@@ -128,8 +128,6 @@ update book
 
 -- 여기까지 트랜잭션...(끝)
 
-select * from 
-
 select * from rentalstatus;
 select * from book;
 select * from book where bookno = '40005-3';
@@ -162,3 +160,12 @@ update book
 -- 트랜잭션 끝
 select * from rentalstatus;
 select * from book;
+
+-- 대여완료된 책들만 뽑아보기
+select * from rentalstatus
+where userreturndate is not null;
+
+-- 연체된 책들만 뽑아보기
+select b.bookno, b.booktitle, r.delaydate, r.rentaldate
+  from rentalstatus r left join book b on r.bookno = b.bookno 
+ where (curdate() - (r.rentaldate + b.rentalrange) > 0) and (userreturndate is null);
