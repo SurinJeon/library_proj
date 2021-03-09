@@ -8,6 +8,8 @@ public interface BookDao {
 
 	List<Book> selectBookByAll();
 	Book selectBookByNo(Book book);
+	Book selectBookByTitle(Book book);
+	Book selectBookByCategory(Book book);
 	int insertBook(Book book);
 	int updateBook(Book book);
 	int deleteBook(Book book);

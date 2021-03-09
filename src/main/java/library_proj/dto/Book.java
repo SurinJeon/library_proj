@@ -18,6 +18,10 @@ public class Book {
 		this.bookNo = bookNo;
 	}
 
+	public Book(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
+	}
+
 	public Book(String bookNo, String bookTitle, int isRented, BookCategory bookCategory, int count, int rentalRange) {
 		this.bookNo = bookNo;
 		this.bookTitle = bookTitle;
@@ -80,5 +84,32 @@ public class Book {
 		return String.format("Book [bookNo=%s, bookTitle=%s, isRented=%s, bookCategory=%s, count=%s, rentalRange=%s]",
 				bookNo, bookTitle, isRented, bookCategory, count, rentalRange);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bookCategory == null) ? 0 : bookCategory.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (bookCategory == null) {
+			if (other.bookCategory != null)
+				return false;
+		} else if (!bookCategory.equals(other.bookCategory))
+			return false;
+		return true;
+	}
+	
+	
 	
 }
