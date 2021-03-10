@@ -53,7 +53,8 @@ select distinct left(bookno, 5), booktitle,
 	case
 	 when sum(isRented) = 0 then '대여불가능'
 	 else '대여가능'
-	end as '대출여부'
+	end as '대출여부',
+	count(*) as '권수'
   from book
  where bookcategory = 3
  group by left(bookno, 5);

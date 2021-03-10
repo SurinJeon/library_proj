@@ -10,7 +10,6 @@ import java.util.List;
 import library_proj.dao.BookDao;
 import library_proj.dto.Book;
 import library_proj.dto.BookCategory;
-import library_proj.dto.Manager;
 import library_proj.util.JdbcUtil;
 
 public class BookDaoImpl implements BookDao {
@@ -76,17 +75,31 @@ public class BookDaoImpl implements BookDao {
 
 
 	@Override
-	public Book selectBookByTitle(Book book) {
+	public List<Book> selectBookByTitle(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
 				+ " from book"
 				+ " where booktitle = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
+			
+			/*
+			 * if(rs.next()) {
+				List<Book> list = new ArrayList<Book>(); 
+				do {
+					list.add(getBook(rs));
+				} while(rs.next());
+				return list;
+			}
+			 */
 			pstmt.setString(1, book.getBookTitle());
 			try(ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
-					return getBook(rs);
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					return list;
 				}
 			}
 		} catch (SQLException e) {
@@ -96,7 +109,7 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public Book selectBookByCategory(Book book) {
+	public List<Book> selectBookByCategory(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
 				+ " from book"
 				+ " where bookcategory = ?";
@@ -106,7 +119,11 @@ public class BookDaoImpl implements BookDao {
 			pstmt.setInt(1, book.getBookCategory().getBookCategory());
 			try(ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
-					return getBook(rs);
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					return list;
 				}
 			}
 		} catch (SQLException e) {
@@ -139,13 +156,37 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public int updateBook(Book book) {
-		// TODO Auto-generated method stub
+		String sql = "update book set bookno = ?, booktitle = ?, isRented = ?, bookcategory = ?, count = ?, rentalrange = ? where bookno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookNo());
+			pstmt.setString(2, book.getBookTitle());
+			pstmt.setInt(3, book.getIsRented());
+			pstmt.setInt(4, book.getBookCategory().getBookCategory());
+			pstmt.setInt(5, book.getCount());
+			pstmt.setInt(6, book.getRentalRange());
+			pstmt.setString(7, book.getBookNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
 	@Override
 	public int deleteBook(Book book) {
-		// TODO Auto-generated method stub
+		String sql ="delete from book"
+				+ " where bookno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookNo());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

@@ -15,8 +15,8 @@ import library_proj.dto.subBookTitle;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookDaoTest {
-
 	private static BookDao dao = BookDaoImpl.getInstance();
+	
 	@After
 	public void tearDown() throws Exception {
 		System.out.println();
@@ -41,36 +41,42 @@ public class BookDaoTest {
 	}
 
 	@Test
-	public void test06SelectBookByName() {
+	public void test06SelectBookByTitle() {
 		System.out.printf("%s()%n", "SelectBookByName");
 		Book book = new subBookTitle("Machine learning");
-		Book searchBook = dao.selectBookByTitle(book);
-		Assert.assertNotNull(searchBook);
-		System.out.println(searchBook);
+		List<Book> searchBookList = dao.selectBookByTitle(book);
+		Assert.assertNotNull(searchBookList);
+		searchBookList.stream().forEach(System.out::println);
 	}
 
 	@Test
-	public void test01SelectBookByCategory() {
+	public void test07SelectBookByCategory() {
 		System.out.printf("%s()%n", "SelectBookByCategory");
 		Book book = new Book(new BookCategory(4));
-		Book searchBook = dao.selectBookByCategory(book);
-		Assert.assertNotNull(searchBook);
-		System.out.println(searchBook);
+		List<Book> searchBookList = dao.selectBookByCategory(book);
+		Assert.assertNotNull(searchBookList);
+		searchBookList.stream().forEach(System.out::println);
+
 	}
 
 	@Test
-	public void test02InsertBook() {
-//		new Book(bookNo, bookTitle, isRented, bookCategory, count, rentalRange)
+	public void test01InsertBook() {
 		System.out.printf("%s()%n", "testInsertBook()");
 		Book newBook = new Book("40008-6", "Machine learning", 1, new BookCategory(3), 1, 5);
 		int res = dao.insertBook(newBook);
 		Assert.assertEquals(1, res);
-		System.out.println(res);
 		dao.selectBookByAll().stream().forEach(System.out::println);
 	}
 
+	@Test
+	public void test02UpdateBook() {
+		System.out.printf("%s()%n", "testUpdateBook");
+		Book upBook = new Book("40008-6", "Machine Not learning", 1, new BookCategory(3), 1, 5);
+		int res = dao.updateBook(upBook);
+		Assert.assertEquals(1, res);
+		System.out.println(upBook);
+	}
 
-	
 	@Test
 	public void test03DeleteBook() {
 		System.out.printf("%s()%n", "testDeleteBook");
@@ -78,7 +84,6 @@ public class BookDaoTest {
 		int res = dao.deleteBook(delBook);
 		Assert.assertEquals(1, res);
 		System.out.println(res);
-		dao.selectBookByAll().stream().forEach(System.out::println);
 	}
 
 }
