@@ -20,6 +20,10 @@ public class User {
 	public User(int userNo) {
 		this.userNo = userNo;
 	}
+	
+	public User(String userName) {
+		this.userName = userName;
+	}
 
 	public User(int userNo, String userName, Date userBirth, String account, String tel, String phone, String address) {
 		this.userNo = userNo;

@@ -11,7 +11,7 @@ import org.junit.runners.MethodSorters;
 import library_proj.dao.Impl.BookDaoImpl;
 import library_proj.dto.Book;
 import library_proj.dto.BookCategory;
-import library_proj.dto.subBookTitle;
+import library_proj.dto.SubBookTitle;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookDaoTest {
@@ -43,7 +43,7 @@ public class BookDaoTest {
 	@Test
 	public void test06SelectBookByTitle() {
 		System.out.printf("%s()%n", "SelectBookByName");
-		Book book = new subBookTitle("Machine learning");
+		Book book = new SubBookTitle("Machine learning");
 		List<Book> searchBookList = dao.selectBookByTitle(book);
 		Assert.assertNotNull(searchBookList);
 		searchBookList.stream().forEach(System.out::println);

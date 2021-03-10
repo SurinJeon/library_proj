@@ -16,3 +16,5 @@ select bookno, booktitle, isRented, bookcategory, count, rentalrange from book;
 select bookno, booktitle, isRented, bookcategory, count, rentalrange from book where ;
 
 delete from book where bookno = '40008-6';
+desc user;
+select userno, username, userbirth, account, tel, phone, address from user;
