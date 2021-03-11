@@ -24,6 +24,10 @@ public class User {
 	public User(String userName) {
 		this.userName = userName;
 	}
+	
+	public User(Date userBirth) {
+		this.userBirth = userBirth;
+	}
 
 	public User(int userNo, String userName, Date userBirth, String account, String tel, String phone, String address) {
 		this.userNo = userNo;
@@ -93,7 +97,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return String.format("User [userNo=%s, userName=%s, userBirth=%s, account=%s, tel=%s, phone=%s, address=%s]",
+		return String.format("User %d, %s, %s, %s, %s, %s, %s",
 				userNo, userName, userBirth, account, tel, phone, address);
 	}
 
