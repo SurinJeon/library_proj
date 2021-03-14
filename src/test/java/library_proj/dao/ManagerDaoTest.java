@@ -31,10 +31,10 @@ public class ManagerDaoTest {
 	}
 
 	@Test
-	public void test05SelectManagerByNo() {
-		System.out.printf("%s()%n", "testSelectManagerByNo");
+	public void test05SelectManagerById() {
+		System.out.printf("%s()%n", "testSelectManagerById");
 		Manager mng = new Manager("manager_1@lib.go.kr");
-		Manager searchMng = dao.selectManagerByNo(mng);
+		Manager searchMng = dao.selectManagerById(mng);
 		Assert.assertNotNull(searchMng);
 		System.out.println(searchMng);
 	}
@@ -46,7 +46,7 @@ public class ManagerDaoTest {
 		int res = dao.insertManager(newMng);
 		Assert.assertEquals(1, res);
 		System.out.println("반영된 행 갯수 : " + res);
-		System.out.println(dao.selectManagerByNo(newMng));
+		System.out.println(dao.selectManagerById(newMng));
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class ManagerDaoTest {
 		int res = dao.updateManager(upMng);
 		Assert.assertEquals(1, res);
 		System.out.println("반영된 행 갯수 : " + res);
-		System.out.println(dao.selectManagerByNo(upMng));
+		System.out.println(dao.selectManagerById(upMng));
 	}
 
 	@Test

@@ -1,6 +1,7 @@
 package library_proj.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -26,6 +27,14 @@ public class User {
 	}
 	
 	public User(Date userBirth) {
+		this.userBirth = userBirth;
+	}
+
+	
+	
+	public User(int userNo, String userName, Date userBirth) {
+		this.userNo = userNo;
+		this.userName = userName;
 		this.userBirth = userBirth;
 	}
 
@@ -100,5 +109,13 @@ public class User {
 		return String.format("User %d, %s, %s, %s, %s, %s, %s",
 				userNo, userName, userBirth, account, tel, phone, address);
 	}
+	
+//	public String toStringUserByBook() {
+//		return String.format("User %d, %s, %s", userNo, userName, userBirth);
+//		
+//	}
+//	public void toStringUserByBook(List<User> user) {
+//			toStringUserByBook();
+//	}
 
 }

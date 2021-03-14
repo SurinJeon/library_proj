@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import library_proj.dao.BookDao;
 import library_proj.dto.Book;
 import library_proj.dto.BookCategory;
+import library_proj.dto.RentalStatus;
+import library_proj.dto.User;
 import library_proj.util.JdbcUtil;
 
 public class BookDaoImpl implements BookDao {
@@ -43,12 +46,44 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	private Book getBook(ResultSet rs) throws SQLException {
-		String bookNo = rs.getString("bookno");
-		String bookTitle = rs.getString("booktitle");
-		int isRented = rs.getInt("isrented");
-		BookCategory bookCategory = new BookCategory(rs.getInt("bookcategory"));
-		int count = rs.getInt("count");
-		int rentalRange = rs.getInt("rentalrange");
+		String bookNo = null;
+		String bookTitle = null;
+		int isRented = 0;
+		BookCategory bookCategory = null;
+		int count = 0;
+		int rentalRange = 0;
+		
+
+		try {
+			bookNo = rs.getString("bookno");
+		} catch (SQLException e) {
+		}
+
+		try {
+			bookTitle = rs.getString("booktitle");
+		} catch (SQLException e) {
+		}
+
+		try {
+			isRented = rs.getInt("isrented");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			bookCategory = new BookCategory(rs.getInt("bookcategory"));
+		} catch (SQLException e) {
+		}
+		
+		try {
+			count = rs.getInt("count");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			rentalRange = rs.getInt("rentalrange");
+		} catch (SQLException e) {
+		}
+		
 		return new Book(bookNo, bookTitle, isRented, bookCategory, count, rentalRange);
 	}
 
@@ -188,6 +223,63 @@ public class BookDaoImpl implements BookDao {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public List<Book> selectBookByUserNo(User user) {
+		String sql = "select bookno, booktitle, rentalno, delaydate, rentaldate from vw_all where userno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setInt(1, user.getUserNo());
+			try(ResultSet rs= pstmt.executeQuery();
+					){
+				if(rs.next()) {
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBookUser(rs));
+					} while(rs.next());
+					return list;
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private Book getBookUser(ResultSet rs) {
+		String bookNo = null;
+		String bookTitle = null;
+		RentalStatus rentalstatus = null;
+
+		try {
+			bookNo = rs.getString("bookno");
+		} catch (SQLException e) {
+		}
+
+		try {
+			bookTitle = rs.getString("booktitle");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			rentalstatus = new RentalStatus(rs.getInt("rentalno"));
+		} catch (SQLException e) {
+		}
+		
+		try {
+			rentalstatus.setDelayDate(rs.getInt("delaydate"));
+		} catch (SQLException e) {
+		}
+		
+		try {
+			rentalstatus.setRentalDate(rs.getDate("rentaldate"));
+		} catch (SQLException e) {
+		}
+		return new Book(bookNo, bookTitle, rentalstatus);
 	}
 
 }

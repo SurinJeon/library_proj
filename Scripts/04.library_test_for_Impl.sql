@@ -55,14 +55,24 @@ select * from vw_all;
 select rentalno,bookno,userno,rentaldate,userreturndate,delaydate,username,userbirth,account,tel,phone,address,booktitle,isRented,bookcategory,count,rentalrange
 from vw_all where userno = 12001;
 
+select rentalno, bookno, userno, rentaldate, userreturndate, delaydate from rentalstatus;
+
+select * from rentalstatus;
+
+select rentalno, bookno, userno, rentaldate, userreturndate, delaydate from rentalstatus where userno = 12002;
+
+insert into rentalstatus values (5, '40006-1', 12005, 20210309, null, default(delaydate));
+
+delete from rentalstatus where rentalno = 5;
+
+update rentalstatus set rentalno = 5, bookno = '40006-1', userno = 12006, rentaldate = , userreturndate = ?, delaydate = ? where rentalno = ?;
 
 
+select bookno, booktitle, rentalno, delaydate, rentaldate from vw_all where userno = 12001;
 
+select * from vw_all;
 
-
-
-
-
+select * from manager;
 
 
 

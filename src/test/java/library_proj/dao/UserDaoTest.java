@@ -1,6 +1,5 @@
 package library_proj.dao;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,7 +90,7 @@ public class UserDaoTest {
 		Book book = new Book("40001-1");
 		RentalStatus rentalStatus = new RentalStatus(1);
 		System.out.println(user);
-		List<Object> searchUserList = dao.selectUserByView(user, book, rentalStatus);
+		List<User> searchUserList = dao.selectUserByView(user, book, rentalStatus);
 		Assert.assertNotNull(searchUserList);
 		searchUserList.stream().forEach(System.out::println);
 	}

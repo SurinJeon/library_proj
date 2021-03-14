@@ -2,13 +2,15 @@ package library_proj.dto;
 
 public class Book {
 
+	
 	private String bookNo;
 	private String bookTitle;
 	private int isRented;
 	private BookCategory bookCategory;
 	private int count;
 	private int rentalRange;
-
+	private RentalStatus rentalstatus = null;
+	
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -20,6 +22,13 @@ public class Book {
 
 	public Book(BookCategory bookCategory) {
 		this.bookCategory = bookCategory;
+	}
+
+
+	public Book(String bookNo, String bookTitle, RentalStatus rentalstatus) {
+		this.bookNo = bookNo;
+		this.bookTitle = bookTitle;
+		this.rentalstatus = rentalstatus;
 	}
 
 	public Book(String bookNo, String bookTitle, int isRented, BookCategory bookCategory, int count, int rentalRange) {
@@ -78,38 +87,17 @@ public class Book {
 	public void setRentalRange(int rentalRange) {
 		this.rentalRange = rentalRange;
 	}
+//
+//	@Override
+//	public String toString() {
+//		return String.format("Book [bookNo=%s, bookTitle=%s, %s, %s", bookNo, bookTitle, rentalstatus.getDelayDate(), rentalstatus.getRentalDate());
+//	}
 
 	@Override
 	public String toString() {
 		return String.format("Book [bookNo=%s, bookTitle=%s, isRented=%s, bookCategory=%s, count=%s, rentalRange=%s]",
 				bookNo, bookTitle, isRented, bookCategory, count, rentalRange);
 	}
+	
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bookCategory == null) ? 0 : bookCategory.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Book other = (Book) obj;
-		if (bookCategory == null) {
-			if (other.bookCategory != null)
-				return false;
-		} else if (!bookCategory.equals(other.bookCategory))
-			return false;
-		return true;
-	}
-	
-	
-	
 }

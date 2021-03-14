@@ -48,7 +48,7 @@ public class ManagerDaoImpl implements ManagerDao {
 	}
 
 	@Override
-	public Manager selectManagerByNo(Manager manager) {
+	public Manager selectManagerById(Manager manager) {
 		String sql = "select mngaccount, passwd from manager where mngaccount = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);

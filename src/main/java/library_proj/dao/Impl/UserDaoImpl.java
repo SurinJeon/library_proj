@@ -46,13 +46,49 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	private User getUser(ResultSet rs) throws SQLException {
-		int userNo = rs.getInt("userno");
-		String userName = rs.getString("username");
-		Date userBirth = rs.getDate("userbirth");
-		String account = rs.getString("account");
-		String tel = rs.getString("tel");
-		String phone = rs.getString("phone");
-		String address = rs.getString("address");
+		int userNo = 0;
+		String userName = null;
+		Date userBirth = null;
+		String account = null;
+		String tel = null;
+		String phone = null;
+		String address = null;
+		
+		try {
+			userNo = rs.getInt("userno");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			userName = rs.getString("username");
+		} catch (SQLException e) {
+		}
+
+		try {
+			userBirth = rs.getDate("userbirth");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			account = rs.getString("account");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			tel = rs.getString("tel");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			phone = rs.getString("phone");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			address = rs.getString("address");
+		} catch (SQLException e) {
+		}
+		
 		return new User(userNo, userName, userBirth, account, tel, phone, address);
 	}
 
@@ -164,17 +200,17 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public List<Object> selectUserByView(User user, Book book, RentalStatus rentalStatus) {
-		String sql = "select rentalno,bookno,userno,rentaldate,userreturndate,delaydate,username,userbirth,account,tel,phone,address,booktitle,isRented,bookcategory,count,rentalrange\r\n" + 
+	public List<User> selectUserByView(User user, Book book, RentalStatus rentalStatus) {
+		String sql = "select userno, username, userbirth, address " + 
 				"from vw_all where bookno = ?";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
 //			pstmt.setTimestamp(1, new Timestamp(user.getUserBirth().getTime()));
-			pstmt.setInt(1, user.getUserNo());
+			pstmt.setString(1, book.getBookNo());
 			try(ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
-					List<Object> list = new ArrayList<Object>();
+					List<User> list = new ArrayList<User>();
 					do {
 						list.add(getUser(rs));
 					} while(rs.next());
@@ -190,6 +226,14 @@ public class UserDaoImpl implements UserDao {
 
 
 
+/*
+	private Object getUserByBook(ResultSet rs) throws SQLException {
+		int userNo = rs.getInt("userno");
+		String userName = rs.getString("username");
+		Date userBirth = rs.getDate("userBirth");
+		return new User(userNo, userName, userBirth);
+	}
+*/
 
 	@Override
 	public int insertUser(User user) {

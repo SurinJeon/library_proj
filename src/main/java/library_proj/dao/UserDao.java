@@ -14,7 +14,7 @@ public interface UserDao {
 	List<User> selectUserByPhone(User user);
 	List<User> selectUserByAccount(User user);
 	List<User> selectUserByBirth(User user);
-	List<Object> selectUserByView(User user, Book book, RentalStatus rentalStatus);
+	List<User> selectUserByView(User user, Book book, RentalStatus rentalStatus);
 	int insertUser(User user);
 	int updateUser(User user);
 	int deleteUser(User user);

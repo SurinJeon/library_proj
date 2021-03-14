@@ -9,7 +9,7 @@ public class RentalStatus {
 	private User userNo;
 	private Date rentalDate;
 	private Date userReturnDate;
-	private Date delayDate;
+	private int delayDate;
 
 	public RentalStatus() {
 		super();
@@ -20,7 +20,14 @@ public class RentalStatus {
 		this.rentalNo = rentalNo;
 	}
 
-	public RentalStatus(int rentalNo, Book bookNo, User userNo, Date rentalDate, Date userReturnDate, Date delayDate) {
+	
+	public RentalStatus(Book bookNo, User userNo, Date rentalDate) {
+		this.bookNo = bookNo;
+		this.userNo = userNo;
+		this.rentalDate = rentalDate;
+	}
+
+	public RentalStatus(int rentalNo, Book bookNo, User userNo, Date rentalDate, Date userReturnDate,  int delayDate) {
 		this.rentalNo = rentalNo;
 		this.bookNo = bookNo;
 		this.userNo = userNo;
@@ -69,14 +76,15 @@ public class RentalStatus {
 		this.userReturnDate = userReturnDate;
 	}
 
-	public Date getDelayDate() {
+	public int getDelayDate() {
 		return delayDate;
 	}
 
-	public void setDelayDate(Date delayDate) {
+	public void setDelayDate(int delayDate) {
 		this.delayDate = delayDate;
 	}
 
+	
 	@Override
 	public String toString() {
 		return String.format(
