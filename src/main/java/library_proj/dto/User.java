@@ -31,7 +31,13 @@ public class User {
 	}
 
 	
-	
+	public User(int userNo, String userName, String tel, String phone) {
+		this.userNo = userNo;
+		this.userName = userName;
+		this.tel = tel;
+		this.phone = phone;
+	}
+
 	public User(int userNo, String userName, Date userBirth) {
 		this.userNo = userNo;
 		this.userName = userName;
@@ -104,11 +110,11 @@ public class User {
 		this.address = address;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("User %d, %s, %s, %s, %s, %s, %s",
-				userNo, userName, userBirth, account, tel, phone, address);
-	}
+//	@Override
+//	public String toString() {
+//		return String.format("User %d, %s, %s, %s, %s, %s, %s",
+//				userNo, userName, userBirth, account, tel, phone, address);
+//	}
 	
 //	public String toStringUserByBook() {
 //		return String.format("User %d, %s, %s", userNo, userName, userBirth);
@@ -118,4 +124,10 @@ public class User {
 //			toStringUserByBook();
 //	}
 
+	@Override
+	public String toString() {
+		return String.format("User %d, %s, %s, %s",
+				userNo, userName, tel, phone);
+	}
+	
 }

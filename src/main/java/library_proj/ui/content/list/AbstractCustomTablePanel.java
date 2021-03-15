@@ -1,4 +1,4 @@
-package library_proj.content.list;
+package library_proj.ui.content.list;
 
 import java.awt.BorderLayout;
 import java.util.List;
@@ -17,7 +17,7 @@ import javax.swing.table.TableRowSorter;
 @SuppressWarnings("serial")
 public abstract class AbstractCustomTablePanel<T> extends JPanel {
 	private JTable table;
-	private List<T> list;
+	protected List<T> list;
 
 	public AbstractCustomTablePanel() {
 		initialize();
@@ -81,7 +81,7 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 		scrollPane.setViewportView(table);
 	}
 
-	public abstract Object[] getColumnNames();
+	public abstract String[] getColumnNames();
 
  class CustomTableModel extends DefaultTableModel {
 

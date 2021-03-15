@@ -2,17 +2,29 @@ package library_proj;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import library_proj.content.LogInPanel;
+import library_proj.dto.Manager;
+import library_proj.service.ManagerService;
+import library_proj.ui.MainPage;
+import library_proj.ui.content.LogInPanel;
+import library_proj.ui.exception.InvalidCheckException;
 
 @SuppressWarnings("serial")
-public class LogInUI extends JFrame {
+public class LogInUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private JButton btnLogIn;
+	private LogInPanel pLogIn;
+	private ManagerService service;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -28,18 +40,59 @@ public class LogInUI extends JFrame {
 	}
 
 	public LogInUI() {
+		service = new ManagerService();
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		LogInPanel pLogIn = new LogInPanel();
+		pLogIn = new LogInPanel();
 		contentPane.add(pLogIn, BorderLayout.CENTER);
+		
+		btnLogIn = new JButton("로그인");
+		btnLogIn.addActionListener(this);
+		contentPane.add(btnLogIn, BorderLayout.SOUTH);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLogIn) {
+			actionPerformedBtnLogIn(e);
+		}
+	}
+	protected void actionPerformedBtnLogIn(ActionEvent e) {
+//		String passwd = new String(pLogIn.getPassword());
+//		Manager manager = new Manager(tfId.getText().trim(), passwd);
+		
+		try {
+			Manager mng = pLogIn.getManager();
+			Manager searchMn = service.selectManagerById(mng);
+			//		
+
+			if( mng != null) {
+				if(mng.getMngAccount().equals(searchMn.getMngAccount()) && mng.getPasswd().equals(searchMn.getPasswd())) {
+					MainPage frame = new MainPage();
+					frame.setVisible(true);
+					// 수행 후 창 닫는 부분 구현하기 보류!
+//					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				} else {
+					JOptionPane.showMessageDialog(null, "잘못된 비밀번호입니다.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
+				if(mng.getMngAccount().equals("") && mng.getPasswd().equals("")) {
+					JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력하세요.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "해당 아이디가 없습니다.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		} catch (InvalidCheckException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage(), "로그인실패", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+	}
 }

@@ -74,6 +74,8 @@ select * from vw_all;
 
 select * from manager;
 
+select userno, username, tel, phone from user;
+
 
 
 

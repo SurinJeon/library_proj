@@ -296,5 +296,34 @@ public class UserDaoImpl implements UserDao {
 		return 0;
 	}
 
+	@Override
+	public List<User> selectUserByAllForList() {
+		String sql = "select userno, username, tel, phone from user";
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();
+				) {
+			if (rs.next()) {
+				List<User> list = new ArrayList<User>();
+				do {
+					list.add(getUserByList(rs));
+				} while (rs.next());
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private User getUserByList(ResultSet rs) throws SQLException {
+		
+		int userNo = rs.getInt("userno");
+		String userName = rs.getString("username");
+		String tel = rs.getString("tel");
+		String phone = rs.getString("phone");
+		return new User(userNo, userName, tel, phone);
+	}
+
 
 }

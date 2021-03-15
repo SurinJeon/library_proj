@@ -9,6 +9,7 @@ import library_proj.dto.User;
 public interface UserDao {
 
 	List<User> selectUserByAll();
+	List<User> selectUserByAllForList();
 	List<User> selectUserByNo(User user);
 	List<User> selectUserByName(User user);
 	List<User> selectUserByPhone(User user);

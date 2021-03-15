@@ -95,6 +95,15 @@ public class UserDaoTest {
 		searchUserList.stream().forEach(System.out::println);
 	}
 	
+	@Test
+	public void test11Select() {
+//		System.out.printf("%s()%n", "testSelectUserByAll");
+		List<User> userList = dao.selectUserByAllForList();
+		Assert.assertNotNull(userList);
+		
+		userList.stream().forEach(System.out::println);
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test01InsertUser() {

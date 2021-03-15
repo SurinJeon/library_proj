@@ -1,4 +1,4 @@
-package library_proj.content;
+package library_proj.ui.content;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -14,9 +14,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import library_proj.LogInUI;
 import library_proj.dto.Manager;
 import library_proj.service.ManagerService;
 import library_proj.ui.MainPage;
+import library_proj.ui.exception.InvalidCheckException;
 
 @SuppressWarnings("serial")
 public class LogInPanel extends JPanel implements ActionListener {
@@ -66,6 +68,22 @@ public class LogInPanel extends JPanel implements ActionListener {
 		}
 	}
 	
+	public Manager getManager() {
+		
+		validCheck();
+		String id = tfId.getText().trim();
+		String passwd = new String(pfPasswd.getPassword());
+//		Manager manager = new Manager(tfId.getText().trim(), passwd);
+		return new Manager(id, passwd); 
+	}
+	
+	private void validCheck() {
+		String passwd = new String(pfPasswd.getPassword());
+		if(tfId.getText().trim().contentEquals("") || passwd.equals("")) {
+			throw new InvalidCheckException();
+		}
+		
+	}
 	protected void actionPerformedBtnLogIn(ActionEvent e) {
 
 		String passwd = new String(pfPasswd.getPassword());
