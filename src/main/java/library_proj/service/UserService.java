@@ -18,4 +18,21 @@ public class UserService {
 	}
 	
 	
+	public List<User> showUsersByUserNo(User user){
+//		List<User> list = daoUser.selectUserByNo(user);
+		return daoUser.selectUserByNo(user);
+		
+	}
+	
+	public List<User> showUsersByUserName(User user){
+		return daoUser.selectUserByName(user);
+	}
+	
+	public List<User> showUsersByUserAccount(User user){
+		return daoUser.selectUserByAccount(user);
+	}
+	
+	public List<User> showUsersByUserPhone(User user){
+		return daoUser.selectUserByPhone(user);
+	}
 }

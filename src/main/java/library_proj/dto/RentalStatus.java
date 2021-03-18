@@ -26,6 +26,13 @@ public class RentalStatus {
 		this.userNo = userNo;
 		this.rentalDate = rentalDate;
 	}
+	
+
+	public RentalStatus(Book bookNo, Date rentalDate, int delayDate) {
+		this.bookNo = bookNo;
+		this.rentalDate = rentalDate;
+		this.delayDate = delayDate;
+	}
 
 	public RentalStatus(int rentalNo, Book bookNo, User userNo, Date rentalDate, Date userReturnDate,  int delayDate) {
 		this.rentalNo = rentalNo;

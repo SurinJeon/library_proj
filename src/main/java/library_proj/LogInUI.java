@@ -65,20 +65,15 @@ public class LogInUI extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnLogIn(ActionEvent e) {
-//		String passwd = new String(pLogIn.getPassword());
-//		Manager manager = new Manager(tfId.getText().trim(), passwd);
-		
 		try {
 			Manager mng = pLogIn.getManager();
 			Manager searchMn = service.selectManagerById(mng);
-			//		
 
 			if( mng != null) {
 				if(mng.getMngAccount().equals(searchMn.getMngAccount()) && mng.getPasswd().equals(searchMn.getPasswd())) {
 					MainPage frame = new MainPage();
 					frame.setVisible(true);
-					// 수행 후 창 닫는 부분 구현하기 보류!
-//					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "잘못된 비밀번호입니다.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
 				}

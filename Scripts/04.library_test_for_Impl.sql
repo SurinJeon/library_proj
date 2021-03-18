@@ -76,6 +76,12 @@ select * from manager;
 
 select userno, username, tel, phone from user;
 
+select * from manager;
+desc manager;
 
+insert into manager values('aaa', 'aaa');
+select * from user where username like '%김동%';
 
+select * from rentalstatus;
 
+select rentalno, bookno, booktitle, rentaldate, userreturndate, delaydate from vw_all;

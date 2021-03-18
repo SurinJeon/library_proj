@@ -20,26 +20,28 @@ import library_proj.dto.SubUserPhone;
 import library_proj.dto.User;
 import library_proj.service.UserService;
 import library_proj.ui.content.list.UserTablePanel;
+import library_proj.ui.content.list.UserTablePanelForRent;
 import library_proj.ui.exception.NotAvailableException;
 
 @SuppressWarnings("serial")
-public class SearchUserComboBox extends JPanel implements ActionListener {
+public class SearchUserComboBoxForRent extends JPanel implements ActionListener {
 	private JTextField tfSearchUser;
 	private JButton btnSearch;
 	private UserService service;
 	private JComboBox<String> cmbSearchUser;
 	private List<User> list;
-	private UserTablePanel pUserList;
+	private UserTablePanelForRent pUserList;
 
-	public SearchUserComboBox() {
-		pUserList = new UserTablePanel();
+	public SearchUserComboBoxForRent() {
+		pUserList = new UserTablePanelForRent();
 		initialize();
 		cmbSearchUser.setSelectedIndex(-1);
 	}
+	
 	private void initialize() {
-		setLayout(new GridLayout(0, 4, 10, 0));
+		setLayout(new GridLayout(0, 6, 10, 0));
 		
-		JLabel lblSearchUser = new JLabel("빠른회원검색 : ");
+		JLabel lblSearchUser = new JLabel("검색방법: ");
 		lblSearchUser.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblSearchUser);
 		
@@ -54,6 +56,12 @@ public class SearchUserComboBox extends JPanel implements ActionListener {
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
 		add(btnSearch);
+		
+		JPanel panel = new JPanel();
+		add(panel);
+		
+		JPanel panel_1 = new JPanel();
+		add(panel_1);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -71,7 +79,7 @@ public class SearchUserComboBox extends JPanel implements ActionListener {
 			
 			if(list != null) {
 				pUserList.setList(list);
-				pUserList.setList(); /*loadData() 전체 쓰지말고 setList만! (initList쓰면 showall로 초기화됨...)*/
+				pUserList.setList();
 			} else {
 				throw new NotAvailableException("해당 회원이 존재하지 않습니다.");
 			}
@@ -110,7 +118,8 @@ public class SearchUserComboBox extends JPanel implements ActionListener {
 	public List<User> getList() {
 		return list;
 	}
-	public UserTablePanel getpUserList() {
+	
+	public UserTablePanelForRent getpUserList() {
 		return pUserList;
 	}
 	

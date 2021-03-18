@@ -1,19 +1,24 @@
 package library_proj.ui;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
+import library_proj.service.BookService;
+import library_proj.service.RentalStatusService;
 import library_proj.service.UserService;
-import library_proj.ui.content.list.UserTablePanel;
 import library_proj.ui.content.SearchUserComboBox;
-import java.awt.FlowLayout;
+import library_proj.ui.content.list.BookRentalTablePanel;
+import library_proj.ui.content.list.UserTablePanel;
+import library_proj.ui.content.SearchBookComboBox;
+import library_proj.ui.content.list.BookTablePanel;
 
 @SuppressWarnings("serial")
 public class MainPage extends JFrame implements ActionListener {
@@ -21,17 +26,25 @@ public class MainPage extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton btnRent;
 	private JButton btnReturn;
-	private UserService service;
+	private UserService userService;
+	private RentalStatusService rentalService;
+	private BookService bookService;
+	private UserTablePanel pUserList;
+	private BookRentalTablePanel pBookRentalList;
+	private BookTablePanel pBookList;
 	
 	public MainPage() {
-		service = new UserService();
+		userService = new UserService();
+		rentalService = new RentalStatusService();
+		bookService = new BookService();
+
 		initialize();
 	}
 	
 	private void initialize() {
 		setTitle("메인화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 780, 649);
+		setBounds(100, 100, 700, 900);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,10 +72,11 @@ public class MainPage extends JFrame implements ActionListener {
 		pUser.setLayout(new BorderLayout(0, 0));
 		
 		SearchUserComboBox pCmbUser = new SearchUserComboBox();
+		pCmbUser.setService(userService);
 		pUser.add(pCmbUser, BorderLayout.NORTH);
 		
-		UserTablePanel pUserList = new UserTablePanel();
-		pUserList.setService(service);
+		pUserList = pCmbUser.getpUserList();
+		pUserList.setService(userService);
 		pUserList.loadData();
 		pUser.add(pUserList, BorderLayout.CENTER);
 		
@@ -70,15 +84,17 @@ public class MainPage extends JFrame implements ActionListener {
 		pSearch.add(pBook);
 		pBook.setLayout(new BorderLayout(0, 0));
 		
-		JPanel pCmbBook = new JPanel();
+		SearchBookComboBox pCmbBook = new SearchBookComboBox();
+		pCmbBook.setService(bookService);
 		pBook.add(pCmbBook, BorderLayout.NORTH);
 		
-		JPanel pBookList = new JPanel();
+		pBookList = pCmbBook.getpBookList();
+		pBookList.setService(bookService);
+		pBookList.loadData();
 		pBook.add(pBookList, BorderLayout.CENTER);
-		
 
-		JPanel pList = new JPanel();
-		contentPane.add(pList, BorderLayout.SOUTH);
+		pBookRentalList = pUserList.getpBookRentalList();
+		contentPane.add(pBookRentalList, BorderLayout.SOUTH);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -89,12 +105,15 @@ public class MainPage extends JFrame implements ActionListener {
 			actionPerformedBtnRent(e);
 		}
 	}
+	
 	protected void actionPerformedBtnRent(ActionEvent e) {
 		RentalPage frame = new RentalPage();
 		frame.setVisible(true);
 	}
+	
 	protected void actionPerformedBtnReturn(ActionEvent e) {
 		ReturnPage frame = new ReturnPage();
 		frame.setVisible(true);
 	}
+	
 }

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import library_proj.dao.BookDao;
@@ -88,20 +87,23 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public Book selectBookByNo(Book book) {
+	public List<Book> selectBookByNo(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
 				+ " from book"
-				+ " where bookno = ?";
+				+ " where bookno like ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
-				pstmt.setString(1, book.getBookNo());
-
-				try(ResultSet rs = pstmt.executeQuery()){
-					if(rs.next()) {
-						return getBook(rs);
-					}
+			pstmt.setString(1, book.getBookNo());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					return list;
 				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,20 +115,10 @@ public class BookDaoImpl implements BookDao {
 	public List<Book> selectBookByTitle(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
 				+ " from book"
-				+ " where booktitle = ?";
+				+ " where booktitle like?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
-			
-			/*
-			 * if(rs.next()) {
-				List<Book> list = new ArrayList<Book>(); 
-				do {
-					list.add(getBook(rs));
-				} while(rs.next());
-				return list;
-			}
-			 */
 			pstmt.setString(1, book.getBookTitle());
 			try(ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
@@ -147,7 +139,7 @@ public class BookDaoImpl implements BookDao {
 	public List<Book> selectBookByCategory(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
 				+ " from book"
-				+ " where bookcategory = ?";
+				+ " where bookcategory like ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){

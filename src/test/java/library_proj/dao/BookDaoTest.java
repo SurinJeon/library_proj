@@ -19,47 +19,47 @@ import library_proj.dto.User;
 public class BookDaoTest {
 	private static BookDao dao = BookDaoImpl.getInstance();
 	
-//	@After
-//	public void tearDown() throws Exception {
-//		System.out.println();
-//	}
-//
-//	@Test
-//	public void test04SelectBookByAll() {
-//		System.out.printf("%s()%n", "testSelectBookByAll");
-//		List<Book> bookList = dao.selectBookByAll();
-//		Assert.assertNotNull(bookList);
-//		
-//		bookList.stream().forEach(System.out::println);
-//	}
-//
-//	@Test
-//	public void test05SelectBookByNo() {
-//		System.out.printf("%s()%n", "testSelectBookByNo");
-//		Book book = new Book("40001-1");
-//		Book searchBook = dao.selectBookByNo(book);
-//		Assert.assertNotNull(searchBook);
-//		System.out.println(searchBook);
-//	}
-//
-//	@Test
-//	public void test06SelectBookByTitle() {
-//		System.out.printf("%s()%n", "SelectBookByName");
-//		Book book = new SubBookTitle("Machine learning");
-//		List<Book> searchBookList = dao.selectBookByTitle(book);
-//		Assert.assertNotNull(searchBookList);
-//		searchBookList.stream().forEach(System.out::println);
-//	}
-//
-//	@Test
-//	public void test07SelectBookByCategory() {
-//		System.out.printf("%s()%n", "SelectBookByCategory");
-//		Book book = new Book(new BookCategory(4));
-//		List<Book> searchBookList = dao.selectBookByCategory(book);
-//		Assert.assertNotNull(searchBookList);
-//		searchBookList.stream().forEach(System.out::println);
-//
-//	}
+	@After
+	public void tearDown() throws Exception {
+		System.out.println();
+	}
+
+	@Test
+	public void test04SelectBookByAll() {
+		System.out.printf("%s()%n", "testSelectBookByAll");
+		List<Book> bookList = dao.selectBookByAll();
+		Assert.assertNotNull(bookList);
+		
+		bookList.stream().forEach(System.out::println);
+	}
+
+	@Test
+	public void test05SelectBookByNo() {
+		System.out.printf("%s()%n", "testSelectBookByNo");
+		Book book = new Book("40002%");
+		List<Book> searchBookList = dao.selectBookByNo(book);
+		Assert.assertNotNull(searchBookList);
+		searchBookList.stream().forEach(System.out::println);
+	}
+
+	@Test
+	public void test06SelectBookByTitle() {
+		System.out.printf("%s()%n", "SelectBookByName");
+		Book book = new SubBookTitle("Machine%");
+		List<Book> searchBookList = dao.selectBookByTitle(book);
+		Assert.assertNotNull(searchBookList);
+		searchBookList.stream().forEach(System.out::println);
+	}
+
+	@Test
+	public void test07SelectBookByCategory() {
+		System.out.printf("%s()%n", "SelectBookByCategory");
+		Book book = new Book(new BookCategory(4));
+		List<Book> searchBookList = dao.selectBookByCategory(book);
+		Assert.assertNotNull(searchBookList);
+		searchBookList.stream().forEach(System.out::println);
+
+	}
 	
 	@Test
 	public void test08SelectBookByUserNo() {

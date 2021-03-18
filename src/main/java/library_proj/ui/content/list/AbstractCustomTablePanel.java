@@ -16,13 +16,13 @@ import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
 public abstract class AbstractCustomTablePanel<T> extends JPanel {
-	private JTable table;
+	protected JTable table;
 	protected List<T> list;
 
 	public AbstractCustomTablePanel() {
 		initialize();
 	}
-
+	
 	public void loadData() {
 		initList();
 		setList();
@@ -44,6 +44,10 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 		table.setRowSorter(sorter);
 
 		setAlignAndWidth();
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 
 	protected abstract void setAlignAndWidth();

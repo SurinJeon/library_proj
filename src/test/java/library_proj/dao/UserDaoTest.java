@@ -25,7 +25,7 @@ public class UserDaoTest {
 		System.out.println();
 	}
 
-	@Test
+	//@Test
 	public void test04SelectUserByAll() {
 		System.out.printf("%s()%n", "testSelectUserByAll");
 		List<User> userList = dao.selectUserByAll();
@@ -34,7 +34,7 @@ public class UserDaoTest {
 		userList.stream().forEach(System.out::println);
 	}
 
-	@Test
+	//@Test
 	public void test05SelectUserByNo() {
 		System.out.printf("%s()%n", "testSelectUserByNo");
 		User user = new User(12001);
@@ -46,14 +46,14 @@ public class UserDaoTest {
 	@Test
 	public void test06SelectUserByName() {
 		System.out.printf("%s()%n", "testSelectUserByName");
-		User user = new User("배진태");
+		User user = new User("김동%");
 		List<User> searchUserList = dao.selectUserByName(user);
 		Assert.assertNotNull(searchUserList);
 		searchUserList.stream().forEach(System.out::println);
 
 	}
 
-	@Test
+	//@Test
 	public void test07SelectUserByPhone() {
 		System.out.printf("%s()%n", "testSelectUserByPhone");
 		User user = new SubUserPhone("010-7444-1474");
@@ -62,7 +62,7 @@ public class UserDaoTest {
 		searchUserList.stream().forEach(System.out::println);
 	}
 
-	@Test
+////	@Test
 	public void test08SelectUserByAccount() {
 		System.out.printf("%s()%n", "testSelectUserByAccount");
 		User user = new SubUserAccount("%abc%");
@@ -73,7 +73,7 @@ public class UserDaoTest {
 	}
 	
 	@SuppressWarnings("deprecation")
-	@Test
+	//@Test
 	public void test09SelectUserByBirth() {
 		System.out.printf("%s()%n", "testSelectUserByBirth");
 		User user = new User(new Date(7, 3, 5));
@@ -83,7 +83,7 @@ public class UserDaoTest {
 		searchUserList.stream().forEach(System.out::println);
 	}
 
-	@Test
+//	@Test
 	public void test10SelectUserByView() {
 		System.out.printf("%s()%n", "testSelectUserByView");
 		User user = new User(12001);
@@ -95,7 +95,7 @@ public class UserDaoTest {
 		searchUserList.stream().forEach(System.out::println);
 	}
 	
-	@Test
+	//@Test
 	public void test11Select() {
 //		System.out.printf("%s()%n", "testSelectUserByAll");
 		List<User> userList = dao.selectUserByAllForList();
@@ -105,7 +105,7 @@ public class UserDaoTest {
 	}
 	
 	@SuppressWarnings("deprecation")
-	@Test
+//	@Test
 	public void test01InsertUser() {
 		System.out.printf("%s()%n", "testInsertUser");
 		User newUser = new User(12012, "전수린", new Date(95, 10, 01), "surin@abc.com", "053-555-5555", "010-1111-2222", "대구");
@@ -115,7 +115,7 @@ public class UserDaoTest {
 		
 	}
 
-	@Test
+//	@Test
 	public void test02UpdateUser() {
 		System.out.printf("%s()%n", "testUpdateUser");
 		User upUser = new User(12012, "짱정아", new Date(93, 03, 01), "zzangstella@abc.com", "053-555-5555", "010-1111-2222", "대구");
@@ -124,7 +124,7 @@ public class UserDaoTest {
 		System.out.println(upUser);
 	}
 
-	@Test
+//	@Test
 	public void test03DeleteUser() {
 		System.out.printf("%s()%n", "testDeleteUser");
 		User delUser = new User(12012);

@@ -8,7 +8,7 @@ import library_proj.dto.User;
 public interface BookDao {
 
 	List<Book> selectBookByAll();
-	Book selectBookByNo(Book book);
+	List<Book> selectBookByNo(Book book);
 	List<Book> selectBookByTitle(Book book);
 	List<Book> selectBookByCategory(Book book);
 	List<Book> selectBookByUserNo(User user);
