@@ -75,7 +75,7 @@ ALTER TABLE `bookcategory`
 		);
 
 -- 새 테이블
-CREATE TABLE `TABLE` (
+CREATE TABLE 'TABLE'(
 )
 COMMENT '새 테이블';
 
@@ -160,4 +160,4 @@ ALTER TABLE `rentalstatus`
 -- 계정 부여
 grant all
    on library.*
-   to 'user_library_proj'@'localhost' identified by 'rootroot';
+   to 'user_library'@'localhost' identified by 'rootroot';

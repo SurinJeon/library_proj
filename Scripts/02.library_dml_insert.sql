@@ -115,6 +115,9 @@ insert into manager
 values ('manager_1@lib.go.kr', '11223344'),
        ('manager_2@lib.go.kr', '11223344'),
        ('manager_3@lib.go.kr', '11223344');
+      
+insert into manager     
+values('aaa', 'aaa');
        
 -- rentalstatus
 desc rentalstatus;

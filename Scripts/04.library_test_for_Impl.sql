@@ -3,8 +3,8 @@ select user(), database();
 select mngaccount, passwd from manager;
 select mngaccount, passwd from manager where mngaccount = 'manager_1@lib.go.kr';
 insert into manager values ('manager_4@lib.go.kr', '11223344');
-update manager set mngaccount = 'aaa', passwd = 'aaa' where mngaccount = 'manager_4@lib.go.kr';
-delete from manager where mngaccount = 'aaa';
+update manager set mngaccount = 'aaa', passwd = '@aaa' where mngaccount = 'manager_4@lib.go.kr';
+delete from manager where mngaccount = 'manager_4lib.go.kr';
 
 select bookcategory, categoryname from bookcategory;
 select bookcategory, categoryname from bookcategory where bookcategory = 4;
