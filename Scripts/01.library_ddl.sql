@@ -1,5 +1,3 @@
-select user(), database();
-
 -- 도서관리
 DROP SCHEMA IF EXISTS `library`;
 
@@ -7,7 +5,6 @@ DROP SCHEMA IF EXISTS `library`;
 CREATE SCHEMA `library`;
 
 use library;
-
 -- 회원정보
 CREATE TABLE `user` (
 	`userno`    INTEGER(5)  NOT NULL COMMENT '회원번호', -- 회원번호
@@ -28,11 +25,10 @@ ALTER TABLE `user`
 		);
 
 -- 도서정보
-drop table book;
 CREATE TABLE `book` (
 	`bookno`       VARCHAR(10) NOT NULL COMMENT '도서번호', -- 도서번호
 	`booktitle`    VARCHAR(40) NOT NULL COMMENT '도서제목', -- 도서제목
-	`isRented`     TINYINT(1)  NULL     DEFAULT 1 COMMENT 'true(1): 대출가능 / false(0): 대출불가능', -- 대출여부
+	`isRented`     TINYINT(1)  NULL     DEFAULT 0 COMMENT 'true(1): 대출가능 / false(0): 대출불가능', -- 대출여부
 	`bookcategory` INTEGER(1)  NULL     COMMENT '도서구분', -- 도서구분
 	`count`        INTEGER(5)  NULL     COMMENT '권수', -- 권수
 	`rentalrange`  INTEGER(5)  NULL     COMMENT '대여기간' -- 대여기간
@@ -47,7 +43,6 @@ ALTER TABLE `book`
 		);
 
 -- 대출반납내역
-drop table rentalstatus;
 CREATE TABLE `rentalstatus` (
 	`rentalno`       INTEGER(5)  NOT NULL COMMENT '대여번호', -- 대여번호
 	`bookno`         VARCHAR(10) NULL     COMMENT '도서번호', -- 도서번호
@@ -65,8 +60,6 @@ ALTER TABLE `rentalstatus`
 			`rentalno` -- 대여번호
 		);
 
-alter table rentalstatus modify column rentalno int(5) not null auto_increment;
-	
 -- 도서구분
 CREATE TABLE `bookcategory` (
 	`bookcategory` INTEGER(1)  NOT NULL COMMENT '도서구분', -- 도서구분
@@ -163,12 +156,8 @@ ALTER TABLE `rentalstatus`
 			`userno` -- 회원번호
 		);
 		
-show tables;
-
-desc book;
-desc bookcategory;
-desc manager;
-desc rentalstatus;
-desc user;
-
-
+	
+-- 계정 부여
+grant all
+   on library.*
+   to 'user_library_proj'@'localhost' identified by 'rootroot';

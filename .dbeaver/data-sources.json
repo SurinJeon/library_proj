@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"mysql5-177e7eb92cb-28ae48e6e8b4859": {
+		"mysql5-1784af255d6-424a540dbca7cbcb": {
 			"provider": "mysql",
 			"driver": "mysql5",
 			"name": "localhost(root)",
@@ -17,7 +17,7 @@
 				"auth-model": "native"
 			}
 		},
-		"mysql5-177e7edaabb-2ed6bd5db8aa00d": {
+		"mysql5-1784afd6611-4a2c46d7de4a4d17": {
 			"provider": "mysql",
 			"driver": "mysql5",
 			"name": "library(user_library)",
@@ -31,7 +31,8 @@
 				"url": "jdbc:mysql://localhost:3306/library",
 				"home": "C:\\Program Files\\MySQL\\MySQL Server 5.7",
 				"type": "dev",
-				"auth-model": "native"
+				"auth-model": "native",
+				"handlers": {}
 			}
 		}
 	},
