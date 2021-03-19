@@ -17,10 +17,10 @@
 				"auth-model": "native"
 			}
 		},
-		"mysql5-1784afd6611-4a2c46d7de4a4d17": {
+		"mysql5-1784b19ceb5-1b88a8db497f07e": {
 			"provider": "mysql",
 			"driver": "mysql5",
-			"name": "library(user_library)",
+			"name": "library",
 			"save-password": true,
 			"show-system-objects": true,
 			"read-only": false,
