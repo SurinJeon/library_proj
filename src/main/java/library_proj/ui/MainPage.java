@@ -66,6 +66,9 @@ public class MainPage extends JFrame implements ActionListener {
 		JButton btnUserMng = new JButton("회원관리");
 		pBtn.add(btnUserMng);
 		
+		JButton btnBookMng = new JButton("도서관리");
+		pBtn.add(btnBookMng);
+		
 		JPanel pSearch = new JPanel();
 		contentPane.add(pSearch, BorderLayout.CENTER);
 		pSearch.setLayout(new GridLayout(0, 2, 5, 0));

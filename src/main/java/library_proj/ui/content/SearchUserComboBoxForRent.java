@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import library_proj.dto.SubUserAccount;
 import library_proj.dto.SubUserPhone;
 import library_proj.dto.User;
+import library_proj.service.RentalService;
 import library_proj.service.UserService;
 import library_proj.ui.content.list.UserTablePanel;
 import library_proj.ui.content.list.UserTablePanelForRent;
@@ -28,12 +29,14 @@ public class SearchUserComboBoxForRent extends JPanel implements ActionListener 
 	private JTextField tfSearchUser;
 	private JButton btnSearch;
 	private UserService service;
+	private RentalService rentService;
 	private JComboBox<String> cmbSearchUser;
 	private List<User> list;
 	private UserTablePanelForRent pUserList;
 
 	public SearchUserComboBoxForRent() {
 		pUserList = new UserTablePanelForRent();
+		rentService = new RentalService();
 		initialize();
 		cmbSearchUser.setSelectedIndex(-1);
 	}

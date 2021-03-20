@@ -97,17 +97,17 @@ public class SearchBookComboBoxForRent extends JPanel implements ActionListener 
 	}
 	
 	private List<Book> switchList(String searchItem) {
-		List<Book> list = new ArrayList<Book>();
+		Book book = new Book();
 		
 		switch(searchItem) {
 			case "도서번호":
-				list = service.showBooksByNo(new Book(tfSearchBook.getText()));
+				list = service.showBooksByNoForRent(new Book(tfSearchBook.getText()));
 				break;
 			case "도서제목":
-				list = service.showBooksByTitle(new SubBookTitle(tfSearchBook.getText()));
+				list = service.showBooksByTitleForRent(new SubBookTitle(tfSearchBook.getText()));
 				break;
 			case "도서분류":
-				list = service.showBooksByCategory(new Book(new BookCategory(Integer.parseInt(tfSearchBook.getText()))));
+				list = service.showBooksByCategoryForRent(new Book(new BookCategory(Integer.parseInt(tfSearchBook.getText()))));
 				break;
 		}
 		return list;

@@ -25,4 +25,20 @@ public class BookService {
 	public List<Book> showBooksByCategory(Book book){
 		return daoBook.selectBookByCategory(book);
 	}
+	
+	public Book showBooksByNoForDetail(Book book) {
+		return daoBook.selectBookByNoForDetail(book);
+	}
+	
+	public List<Book> showBooksByNoForRent(Book book){
+		return daoBook.selectBookByNoForRent(book);
+	}
+	
+	public List<Book> showBooksByTitleForRent(Book book){
+		return daoBook.selectBookByTitleForRent(book);
+	}
+	
+	public List<Book> showBooksByCategoryForRent(Book book){
+		return daoBook.selectBookByCategoryForRent(book);
+	}
 }

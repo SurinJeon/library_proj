@@ -1,16 +1,16 @@
 package library_proj.ui.content;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import library_proj.dto.Book;
+import library_proj.dto.BookCategory;
 
 @SuppressWarnings("serial")
 public class BookDetailPanel extends JPanel {
@@ -36,7 +36,7 @@ public class BookDetailPanel extends JPanel {
 		panel.add(lblBookTitle);
 		
 		tfBookTitle = new JTextField();
-		tfBookTitle.setBounds(81, 43, 208, 21);
+		tfBookTitle.setBounds(81, 43, 252, 21);
 		panel.add(tfBookTitle);
 		tfBookTitle.setColumns(10);
 		
@@ -64,4 +64,27 @@ public class BookDetailPanel extends JPanel {
 		tfBookCategory.setBounds(81, 101, 116, 21);
 		panel.add(tfBookCategory);
 	}
+	
+	public void setBook(Book book) {
+		tfBookTitle.setText(book.getBookTitle());
+		tfBookNo.setText(book.getBookNo());
+		tfBookCategory.setText(book.getBookCategory().getCategoryName());
+	}
+	
+	public Book getBook() {
+		String bookNo = tfBookNo.getText();
+		String bookTitle = tfBookTitle.getText();
+		String bookCategoryName = tfBookCategory.getText();
+		return new Book(bookNo, bookTitle, new BookCategory(bookCategoryName));
+	}
+	
+	// validcheck 필요!!!
+	
+	public void clearTf() {
+		tfBookTitle.setText("");
+		tfBookNo.setText("");
+		tfBookCategory.setText("");
+	}
+	
+	
 }

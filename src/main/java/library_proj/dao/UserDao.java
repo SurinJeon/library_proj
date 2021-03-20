@@ -11,6 +11,7 @@ public interface UserDao {
 	List<User> selectUserByAll();
 	List<User> selectUserByAllForList();
 	List<User> selectUserByNo(User user);
+	User selectUserByNoForDetail(User user);
 	List<User> selectUserByName(User user);
 	List<User> selectUserByPhone(User user);
 	List<User> selectUserByAccount(User user);

@@ -110,6 +110,30 @@ public class BookDaoImpl implements BookDao {
 		return null;
 	}
 
+	@Override
+	public List<Book> selectBookByNoForRent(Book book) {
+		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
+				+ " from book"
+				+ " where bookno like ? and isRented = 1";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookNo());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public List<Book> selectBookByTitle(Book book) {
@@ -134,12 +158,61 @@ public class BookDaoImpl implements BookDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Book> selectBookByTitleForRent(Book book) {
+		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
+				+ " from book"
+				+ " where booktitle like ? and isRented = 1";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookTitle());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 	@Override
 	public List<Book> selectBookByCategory(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
 				+ " from book"
 				+ " where bookcategory like ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setInt(1, book.getBookCategory().getBookCategory());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<Book> list = new ArrayList<Book>();
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Book> selectBookByCategoryForRent(Book book) {
+		String sql = "select bookno, booktitle, isRented, bookcategory, count, rentalrange"
+				+ " from book"
+				+ " where bookcategory like ? and isRented = 1";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
@@ -272,6 +345,73 @@ public class BookDaoImpl implements BookDao {
 		} catch (SQLException e) {
 		}
 		return new Book(bookNo, bookTitle, rentalstatus);
+	}
+
+	@Override
+	public Book selectBookByNoForDetail(Book book) {
+		String sql = "select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalrange"
+				+ " from vw_book"
+				+ " where bookno = ? and isRented = 1";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookNo());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					return getBookDetail(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private Book getBookDetail(ResultSet rs) {
+		String bookNo = null;
+		String bookTitle = null;
+		int isRented = 0;
+		BookCategory bookCategory = null;
+		int count = 0;
+		int rentalRange = 0;
+		
+
+		try {
+			bookNo = rs.getString("bookno");
+		} catch (SQLException e) {
+		}
+
+		try {
+			bookTitle = rs.getString("booktitle");
+		} catch (SQLException e) {
+		}
+
+		try {
+			isRented = rs.getInt("isrented");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			bookCategory = new BookCategory(rs.getInt("bookcategory"));
+		} catch (SQLException e) {
+		}
+		
+		try {
+			bookCategory.setCategoryName(rs.getString("categoryname"));
+		} catch (Exception e) {
+		}
+	
+		try {
+			count = rs.getInt("count");
+		} catch (SQLException e) {
+		}
+		
+		try {
+			rentalRange = rs.getInt("rentalrange");
+		} catch (SQLException e) {
+		}
+		
+		return new Book(bookNo, bookTitle, isRented, bookCategory, count, rentalRange);
 	}
 
 }

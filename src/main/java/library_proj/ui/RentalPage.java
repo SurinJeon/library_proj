@@ -1,41 +1,54 @@
 package library_proj.ui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-
-import library_proj.service.BookService;
-import library_proj.service.UserService;
-import library_proj.ui.content.SearchUserComboBoxForRent;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import library_proj.ui.content.list.UserTablePanelForRent;
-import library_proj.ui.content.SearchBookComboBoxForRent;
-import library_proj.ui.content.list.BookTablePanelForRent;
-import library_proj.ui.content.UserDetailPanel;
+
+import library_proj.dto.Book;
+import library_proj.dto.User;
+import library_proj.service.BookService;
+import library_proj.service.RentalService;
+import library_proj.service.UserService;
 import library_proj.ui.content.BookDetailPanel;
+import library_proj.ui.content.SearchBookComboBoxForRent;
+import library_proj.ui.content.SearchUserComboBoxForRent;
+import library_proj.ui.content.UserDetailPanel;
+import library_proj.ui.content.list.BookTablePanelForRent;
+import library_proj.ui.content.list.UserTablePanelForRent;
 
 @SuppressWarnings("serial")
-public class RentalPage extends JFrame {
+public class RentalPage extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private UserService userService;
 	private BookService bookService;
+	private RentalService rentService;
+//	private RentalStatusService rentalService;
 	private UserTablePanelForRent pUserList;
+	private BookTablePanelForRent pBookList;
+	private UserDetailPanel pUserDetail;
+	private BookDetailPanel pBookDetail;
+	private JButton btnRent;
+	private SearchUserComboBoxForRent pCmbuser;
+	private SearchBookComboBoxForRent pCmbBook;
 	
 	
 	public RentalPage() {
 		userService = new UserService();
 		bookService = new BookService();
+		rentService = new RentalService();
 		initialize();
+//		btnRent.setEnabled(false);
 	}
 	private void initialize() {
 		setTitle("대출화면");
@@ -54,7 +67,7 @@ public class RentalPage extends JFrame {
 		pCenter.add(pSearch1);
 		pSearch1.setLayout(new BorderLayout(0, 0));
 		
-		SearchUserComboBoxForRent pCmbuser = new SearchUserComboBoxForRent();
+		pCmbuser = new SearchUserComboBoxForRent();
 		pCmbuser.setService(userService);
 		pSearch1.add(pCmbuser, BorderLayout.NORTH);
 		
@@ -64,7 +77,7 @@ public class RentalPage extends JFrame {
 		pSearch1.add(pUserList, BorderLayout.CENTER);
 		pUserList.setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		
-		UserDetailPanel pUserDetail = new UserDetailPanel();
+		pUserDetail = pUserList.getpUserDetail();
 		pUserDetail.setBorder(new EmptyBorder(5, 0, 5, 0));
 		pCenter.add(pUserDetail);
 		
@@ -72,16 +85,16 @@ public class RentalPage extends JFrame {
 		pCenter.add(pSearch2);
 		pSearch2.setLayout(new BorderLayout(0, 0));
 		
-		SearchBookComboBoxForRent pCmbBook = new SearchBookComboBoxForRent();
+		pCmbBook = new SearchBookComboBoxForRent();
 		pCmbBook.setService(bookService);
 		pSearch2.add(pCmbBook, BorderLayout.NORTH);
 		
-		BookTablePanelForRent pBookList = pCmbBook.getpBookList();
+		pBookList = pCmbBook.getpBookList();
 		pBookList.setService(bookService);
 		pBookList.loadData();
 		pSearch2.add(pBookList, BorderLayout.CENTER);
 		
-		BookDetailPanel pBookDetail = new BookDetailPanel();
+		pBookDetail = pBookList.getpBookDetail();
 		pBookDetail.setBorder(new EmptyBorder(5, 0, 5, 0));
 		pCenter.add(pBookDetail);
 		
@@ -90,11 +103,87 @@ public class RentalPage extends JFrame {
 		fl_pBtn.setAlignment(FlowLayout.TRAILING);
 		contentPane.add(pBtn, BorderLayout.SOUTH);
 		
-		JButton btnRent = new JButton("대여하기");
+		btnRent = new JButton("대여하기");
+//		btnRent.setEnabled(false);
+		btnRent.addActionListener(this);
+		showBtnRent();
 		pBtn.add(btnRent);
 		
 		JButton btnCancel = new JButton("취소");
 		pBtn.add(btnCancel);
+		
+		
 	}
 
+	public void showBtnRent() {
+		try {
+			User user = pUserDetail.getUser();
+			Book book = pBookDetail.getBook();
+			if(user != null && book != null) {
+				btnRent.setEnabled(true);
+			}
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnRent) {
+			btnRent.setEnabled(true);
+			actionPerformedBtnRent(e);
+		}
+	}
+	
+	protected void actionPerformedBtnRent(ActionEvent e) {
+		btnRent.setEnabled(true);
+		System.out.println(pUserDetail.getUser());
+		User user = pUserDetail.getUser();
+		Book book = pBookDetail.getBook();
+		
+		if(user != null && book != null) {
+			btnRent.setEnabled(true);
+			rentService.transRental(user, book);
+		} else {
+			if(user == null) {
+				JOptionPane.showMessageDialog(null, "회원을 선택해주세요.");
+			} else if(book == null) {
+				JOptionPane.showMessageDialog(null, "도서를 선택해주세요.");
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, "대여가 완료되었습니다.");
+		
+		pUserDetail.clearTf();
+		pBookDetail.clearTf();
+		
+	}
+	public UserDetailPanel getpUserDetail() {
+		return pUserDetail;
+	}
+	public void setpUserDetail(UserDetailPanel pUserDetail) {
+		this.pUserDetail = pUserDetail;
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

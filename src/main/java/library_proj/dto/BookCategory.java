@@ -13,6 +13,11 @@ public class BookCategory {
 		this.bookCategory = bookCategory;
 	}
 
+	
+	public BookCategory(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	public BookCategory(int bookCategory, String categoryName) {
 		this.bookCategory = bookCategory;
 		this.categoryName = categoryName;

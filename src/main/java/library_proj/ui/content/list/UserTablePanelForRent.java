@@ -1,21 +1,28 @@
 package library_proj.ui.content.list;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import library_proj.dto.User;
 import library_proj.service.UserService;
 import library_proj.ui.content.SearchUserComboBoxForRent;
+import library_proj.ui.content.UserDetailPanel;
 
 @SuppressWarnings("serial")
-public class UserTablePanelForRent extends AbstractCustomTablePanel<User>{
+public class UserTablePanelForRent extends AbstractCustomTablePanel<User> implements MouseListener{
 	
 	private UserService service;
 	private SearchUserComboBoxForRent pcmbUser;
+	private UserDetailPanel pUserDetail;
 	
 	public UserTablePanelForRent() {
-		
+		table.addMouseListener(this);
+		pUserDetail = new UserDetailPanel();
 	}
 
 	@Override
@@ -49,4 +56,45 @@ public class UserTablePanelForRent extends AbstractCustomTablePanel<User>{
 		this.list = list;
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		try {
+			JTable table = (JTable)e.getSource();
+			int idx = table.getSelectedRow();
+			int userNo = (int)table.getValueAt(idx, 0);
+			
+			User searchUser = service.showUserByUserNoForDetail(new User(userNo));
+			if (searchUser != null) {
+				// 1. 해당 행 가져와서
+				// 2. 그 행을 service에서 서치한 것을 setting
+				pUserDetail.setUser(searchUser);
+			}
+			
+		} catch (Exception e1) {
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+
+	public UserDetailPanel getpUserDetail() {
+		return pUserDetail;
+	}
+	
 }

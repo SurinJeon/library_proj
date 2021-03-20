@@ -85,3 +85,9 @@ select * from user where username like '%김동%';
 select * from rentalstatus;
 
 select rentalno, bookno, booktitle, rentaldate, userreturndate, delaydate from vw_all;
+
+create view vw_book
+as
+select b.bookno, b.booktitle, b.isRented, c.bookcategory, c.categoryname, b.count, b.rentalrange from book b left join bookcategory c on b.bookcategory = c.bookcategory; 
+
+select * from vw_book;

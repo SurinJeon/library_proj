@@ -35,4 +35,8 @@ public class UserService {
 	public List<User> showUsersByUserPhone(User user){
 		return daoUser.selectUserByPhone(user);
 	}
+	
+	public User showUserByUserNoForDetail(User user) {
+		return daoUser.selectUserByNoForDetail(user);
+	}
 }

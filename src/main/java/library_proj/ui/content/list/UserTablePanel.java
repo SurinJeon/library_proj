@@ -13,7 +13,9 @@ import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
 import library_proj.service.RentalStatusService;
 import library_proj.service.UserService;
+import library_proj.ui.RentalPage;
 import library_proj.ui.content.SearchUserComboBox;
+import library_proj.ui.content.UserDetailPanel;
 import library_proj.ui.exception.NullListException;
 
 @SuppressWarnings("serial")
@@ -25,6 +27,7 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 //	private List<User> userList;
 	private List<RentalStatus> rentList;
 	private BookRentalTablePanel pBookRentalList;
+//	private UserDetailPanel pUserDetail;
 	
 	public UserTablePanel() {
 		table.addMouseListener(this);
@@ -73,29 +76,42 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		try {
-			List<RentalStatus> rentList = new ArrayList<RentalStatus>();
+		if(e.getClickCount() == 1) {
+			try {
+				List<RentalStatus> rentList = new ArrayList<RentalStatus>();
+				JTable table = (JTable)e.getSource();
+				int idx = table.getSelectedRow();
+				int userNo = (int) table.getValueAt(idx, 0);
+				rentList = rentalService.showRentalBooks(new User(userNo));
+				if(rentList != null) {
+
+					//			rentList.stream().forEach(System.out::println);
+
+					pBookRentalList.setList(rentList);
+					pBookRentalList.setList();
+				} else {
+					List list = new ArrayList();
+					pBookRentalList.setList(list);
+					pBookRentalList.setList();
+
+					throw new NullListException("대여도서가 없습니다.");
+				}
+			} catch (NullListException e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			}
+		}
+		
+		if(e.getClickCount() == 2) {
+//			pUserDetail = new UserDetailPanel();
 			JTable table = (JTable)e.getSource();
 			int idx = table.getSelectedRow();
 			int userNo = (int) table.getValueAt(idx, 0);
-			rentList = rentalService.showRentalBooks(new User(userNo));
-			if(rentList != null) {
+			User searchUser = service.showUserByUserNoForDetail(new User(userNo));
 			
-//			rentList.stream().forEach(System.out::println);
-			
-			pBookRentalList.setList(rentList);
-			pBookRentalList.setList();
-			} else {
-				List list = new ArrayList();
-				pBookRentalList.setList(list);
-				pBookRentalList.setList();
-				
-				throw new NullListException("대여도서가 없습니다.");
-			}
-		} catch (NullListException e1) {
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+//			RentalPage frame = new RentalPage();
+//			frame.setpUserDetail(searchUser);
+//			frame.setVisible(true);
 		}
-			
 	}
 
 	@Override

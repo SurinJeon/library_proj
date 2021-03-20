@@ -1,16 +1,17 @@
 package library_proj.ui.content;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.util.Date;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import library_proj.dto.User;
 
 @SuppressWarnings("serial")
 public class UserDetailPanel extends JPanel {
@@ -131,5 +132,42 @@ public class UserDetailPanel extends JPanel {
 		JLabel lblText = new JLabel("대여회원상세정보");
 		lblText.setBounds(12, 10, 185, 15);
 		panel.add(lblText);
+	}
+	
+	public void setUser(User user) {
+		tfUserName.setText(user.getUserName());
+		tfUserNo.setText(user.getUserNo() + "");
+		tfTel.setText(user.getTel());
+		tfPhone.setText(user.getPhone());
+		tfYear.setText((user.getUserBirth().getYear() + 1900) + "");
+		tfMonth.setText((user.getUserBirth().getMonth() + 1) + "");
+		tfDate.setText(user.getUserBirth().getDate() + "");
+		tfAddress.setText(user.getAddress());
+		tfAccount.setText(user.getAccount());
+	}
+	
+	public User getUser() {
+		validCheck();
+		int year = Integer.parseInt(tfYear.getText()) - 1900;
+		int month = Integer.parseInt(tfMonth.getText()) - 1;
+		int birthDate = Integer.parseInt(tfDate.getText());
+		Date birth = new Date(year, month, birthDate);
+		return new User(Integer.parseInt(tfUserNo.getText()), tfUserName.getText(), birth, tfAccount.getText(), tfTel.getText(), tfPhone.getText(), tfAddress.getText());
+	}
+	private void validCheck() {
+		// validCheck 체크하기
+		
+	}
+	
+	public void clearTf() {
+		tfUserName.setText("");
+		tfUserNo.setText("");
+		tfTel.setText("");
+		tfPhone.setText("");
+		tfYear.setText("");
+		tfMonth.setText("");
+		tfDate.setText("");
+		tfAddress.setText("");
+		tfAccount.setText("");
 	}
 }
