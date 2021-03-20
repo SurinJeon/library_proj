@@ -94,7 +94,8 @@ public class SearchUserComboBoxForRent extends JPanel implements ActionListener 
 	public List<User> switchList(String searchItem) {
 		List<User> list = new ArrayList<User>();
 		
-		switch(searchItem){
+		try {
+			switch(searchItem){
 			case "회원번호":
 				list = service.showUsersByUserNo(new User(Integer.parseInt(tfSearchUser.getText())));		
 				break;
@@ -107,8 +108,10 @@ public class SearchUserComboBoxForRent extends JPanel implements ActionListener 
 			case "휴대전화":
 				list = service.showUsersByUserPhone(new SubUserPhone(tfSearchUser.getText()));
 				break;
+			}
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "형식에 알맞게 입력해주세요.");
 		}
-		
 		return list;
 	}
 	

@@ -20,6 +20,8 @@ import java.awt.Color;
 import library_proj.ui.content.list.UserTablePanelForRent;
 import library_proj.ui.content.SearchBookComboBoxForRent;
 import library_proj.ui.content.list.BookTablePanelForRent;
+import library_proj.ui.content.UserDetailPanel;
+import library_proj.ui.content.BookDetailPanel;
 
 @SuppressWarnings("serial")
 public class RentalPage extends JFrame {
@@ -38,7 +40,7 @@ public class RentalPage extends JFrame {
 	private void initialize() {
 		setTitle("대출화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 648, 647);
+		setBounds(100, 100, 648, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
@@ -62,7 +64,8 @@ public class RentalPage extends JFrame {
 		pSearch1.add(pUserList, BorderLayout.CENTER);
 		pUserList.setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		
-		JPanel pUserDetail = new JPanel();
+		UserDetailPanel pUserDetail = new UserDetailPanel();
+		pUserDetail.setBorder(new EmptyBorder(5, 0, 5, 0));
 		pCenter.add(pUserDetail);
 		
 		JPanel pSearch2 = new JPanel();
@@ -78,7 +81,8 @@ public class RentalPage extends JFrame {
 		pBookList.loadData();
 		pSearch2.add(pBookList, BorderLayout.CENTER);
 		
-		JPanel pBookDetail = new JPanel();
+		BookDetailPanel pBookDetail = new BookDetailPanel();
+		pBookDetail.setBorder(new EmptyBorder(5, 0, 5, 0));
 		pCenter.add(pBookDetail);
 		
 		JPanel pBtn = new JPanel();

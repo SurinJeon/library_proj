@@ -44,7 +44,7 @@ public class MainPage extends JFrame implements ActionListener {
 	private void initialize() {
 		setTitle("메인화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 700, 900);
+		setBounds(100, 100, 800, 900);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,6 +62,9 @@ public class MainPage extends JFrame implements ActionListener {
 		btnReturn = new JButton("반납하기");
 		btnReturn.addActionListener(this);
 		pBtn.add(btnReturn);
+		
+		JButton btnUserMng = new JButton("회원관리");
+		pBtn.add(btnUserMng);
 		
 		JPanel pSearch = new JPanel();
 		contentPane.add(pSearch, BorderLayout.CENTER);

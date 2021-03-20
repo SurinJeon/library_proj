@@ -6,17 +6,24 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class UserDetailPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tfUserName;
+	private JTextField tfUserNo;
+	private JTextField tfTel;
+	private JTextField tfPhone;
+	private JTextField tfYear;
+	private JTextField tfMonth;
+	private JTextField tfDate;
+	private JTextField tfAddress;
+	private JTextField tfAccount;
 
-	/**
-	 * Create the panel.
-	 */
 	public UserDetailPanel() {
 
 		initialize();
@@ -24,68 +31,105 @@ public class UserDetailPanel extends JPanel {
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblText = new JLabel("대여회원상세정보");
-		add(lblText, BorderLayout.NORTH);
-		
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.GRAY));
 		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		panel.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(3, 0, 0, 0));
+		JLabel lblUserName = new JLabel("이름:");
+		lblUserName.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblUserName.setBounds(12, 36, 57, 15);
+		panel.add(lblUserName);
 		
-		JPanel panel_3 = new JPanel();
-		panel_1.add(panel_3);
-		panel_3.setLayout(new GridLayout(1, 2, 0, 0));
+		tfUserName = new JTextField();
+		tfUserName.setBounds(81, 33, 116, 21);
+		panel.add(tfUserName);
+		tfUserName.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel_3.add(lblNewLabel);
+		JLabel lblUserNo = new JLabel("회원번호:");
+		lblUserNo.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblUserNo.setBounds(209, 36, 57, 15);
+		panel.add(lblUserNo);
 		
-		textField = new JTextField();
-		panel_3.add(textField);
-		textField.setColumns(10);
+		tfUserNo = new JTextField();
+		tfUserNo.setColumns(10);
+		tfUserNo.setBounds(278, 33, 116, 21);
+		panel.add(tfUserNo);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		panel_3.add(lblNewLabel_1);
+		JLabel lblTel = new JLabel("전화번호:");
+		lblTel.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblTel.setBounds(12, 66, 57, 15);
+		panel.add(lblTel);
 		
-		textField_1 = new JTextField();
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		tfTel = new JTextField();
+		tfTel.setColumns(10);
+		tfTel.setBounds(81, 63, 116, 21);
+		panel.add(tfTel);
 		
-		JPanel panel_4 = new JPanel();
-		panel_1.add(panel_4);
-		panel_4.setLayout(new GridLayout(1, 2, 0, 0));
+		JLabel lblPhone = new JLabel("휴대전화:");
+		lblPhone.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblPhone.setBounds(209, 66, 57, 15);
+		panel.add(lblPhone);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		panel_4.add(lblNewLabel_2);
+		tfPhone = new JTextField();
+		tfPhone.setColumns(10);
+		tfPhone.setBounds(278, 63, 116, 21);
+		panel.add(tfPhone);
 		
-		textField_2 = new JTextField();
-		panel_4.add(textField_2);
-		textField_2.setColumns(10);
+		JLabel lblBirth = new JLabel("생년월일:");
+		lblBirth.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblBirth.setBounds(12, 96, 57, 15);
+		panel.add(lblBirth);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		panel_4.add(lblNewLabel_3);
+		tfYear = new JTextField();
+		tfYear.setColumns(10);
+		tfYear.setBounds(81, 93, 67, 21);
+		panel.add(tfYear);
 		
-		textField_3 = new JTextField();
-		panel_4.add(textField_3);
-		textField_3.setColumns(10);
+		JLabel lblYear = new JLabel("년");
+		lblYear.setBounds(150, 96, 34, 15);
+		panel.add(lblYear);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		panel_4.add(lblNewLabel_4);
+		tfMonth = new JTextField();
+		tfMonth.setColumns(10);
+		tfMonth.setBounds(171, 94, 34, 21);
+		panel.add(tfMonth);
 		
-		textField_4 = new JTextField();
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
+		JLabel lblMonth = new JLabel("월");
+		lblMonth.setBounds(208, 96, 34, 15);
+		panel.add(lblMonth);
 		
-		JLabel label = new JLabel("");
-		panel_4.add(label);
+		tfDate = new JTextField();
+		tfDate.setColumns(10);
+		tfDate.setBounds(228, 94, 34, 21);
+		panel.add(tfDate);
 		
-		JPanel panel_5 = new JPanel();
-		panel_1.add(panel_5);
+		JLabel lblDate = new JLabel("일");
+		lblDate.setBounds(265, 96, 34, 15);
+		panel.add(lblDate);
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
+		JLabel lblAddress = new JLabel("주소:");
+		lblAddress.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblAddress.setBounds(12, 130, 57, 15);
+		panel.add(lblAddress);
+		
+		tfAddress = new JTextField();
+		tfAddress.setColumns(10);
+		tfAddress.setBounds(81, 127, 116, 21);
+		panel.add(tfAddress);
+		
+		JLabel lblAccount = new JLabel("계정:");
+		lblAccount.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblAccount.setBounds(209, 130, 57, 15);
+		panel.add(lblAccount);
+		
+		tfAccount = new JTextField();
+		tfAccount.setColumns(10);
+		tfAccount.setBounds(278, 127, 116, 21);
+		panel.add(tfAccount);
+		
+		JLabel lblText = new JLabel("대여회원상세정보");
+		lblText.setBounds(12, 10, 185, 15);
+		panel.add(lblText);
 	}
-
 }
