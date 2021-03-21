@@ -27,7 +27,7 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 //	private List<User> userList;
 	private List<RentalStatus> rentList;
 	private BookRentalTablePanel pBookRentalList;
-//	private UserDetailPanel pUserDetail;
+	private UserDetailPanel pUserDetail;
 	
 	public UserTablePanel() {
 		table.addMouseListener(this);
@@ -101,17 +101,18 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 			}
 		}
 		
-		if(e.getClickCount() == 2) {
-//			pUserDetail = new UserDetailPanel();
-			JTable table = (JTable)e.getSource();
-			int idx = table.getSelectedRow();
-			int userNo = (int) table.getValueAt(idx, 0);
-			User searchUser = service.showUserByUserNoForDetail(new User(userNo));
-			
+		// 옮김
+//		if(e.getClickCount() == 2) {
+////			pUserDetail = new UserDetailPanel();
+//			JTable table = (JTable)e.getSource();
+//			int idx = table.getSelectedRow();
+//			int userNo = (int) table.getValueAt(idx, 0);
+//			User searchUser = service.showUserByUserNoForDetail(new User(userNo));
+//			
 //			RentalPage frame = new RentalPage();
-//			frame.setpUserDetail(searchUser);
+////			frame.setpUserDetail(pUserDetail);
 //			frame.setVisible(true);
-		}
+//		}
 	}
 
 	@Override

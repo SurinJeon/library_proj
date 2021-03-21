@@ -2,6 +2,7 @@ package library_proj.dao;
 
 import java.util.List;
 
+import library_proj.dto.Book;
 import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
 
@@ -13,5 +14,6 @@ public interface RentalStatusDao {
 	int insertRentalStatus(RentalStatus rentalstatus);
 	int updateRentalStatus(RentalStatus rentalstatus);
 	int deleteRentalStatus(RentalStatus rentalstatus);
+	RentalStatus selectRentalStatusByBookNo(Book book);
 	
 }

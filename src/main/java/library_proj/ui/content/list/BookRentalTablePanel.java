@@ -5,19 +5,31 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import library_proj.dto.Book;
 import library_proj.dto.RentalStatus;
+import library_proj.dto.User;
 import library_proj.service.RentalStatusService;
+import library_proj.service.UserService;
+import library_proj.ui.RentalPage;
+import library_proj.ui.content.UserDetailPanel;
 
 @SuppressWarnings("serial")
 public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus> implements MouseListener{
+	private RentalStatusService service;
+	private UserService userService;
+	private UserDetailPanel pUserDetail;
+	
 	public BookRentalTablePanel() {
+		userService = new UserService();
 		list = new ArrayList<RentalStatus>();
 		table.addMouseListener(this);
+		
 	}
 
-	private RentalStatusService service;
+
 	
 	@Override
 	protected void setAlignAndWidth() {
@@ -46,7 +58,7 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 	}
 
 	public void setService(RentalStatusService service) {
-		service = new RentalStatusService();
+//		service = new RentalStatusService();
 		this.service = service;
 	}
 	
@@ -63,7 +75,22 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 		 * 4. 반납하기 버튼을 활성화한다.
 		 */
 		if(e.getClickCount() == 2) {
+			JTable table = (JTable)e.getSource();
+			int idx = table.getSelectedRow();
+			String bookNo = (String)table.getValueAt(idx, 0);
+			// 1. rentalstatus에서 bookNo로 검색을 한 다음 userNo를 찾기 << dao작성해야됨
+			// 2. 그 userNo를 통해서 rentalpage에 setUser하기!
+			RentalStatus rentalstatus = service.showUserByBookTitle(new Book(bookNo));
+			System.out.println(rentalstatus);
+			int userNo = rentalstatus.getUserNo().getUserNo();
+			System.out.println(userNo);
+			User userDetail = userService.showUserByUserNoForDetail(new User(userNo));
 			
+			RentalPage frame = new RentalPage();
+			frame.setVisible(true);
+			pUserDetail = new UserDetailPanel();
+			frame.setpUserDetail(pUserDetail);
+			pUserDetail.setUser(userDetail);
 		}
 	}
 

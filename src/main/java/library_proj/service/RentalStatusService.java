@@ -4,6 +4,7 @@ import java.util.List;
 
 import library_proj.dao.RentalStatusDao;
 import library_proj.dao.Impl.RentalStatusDaoImpl;
+import library_proj.dto.Book;
 import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
 
@@ -13,6 +14,10 @@ public class RentalStatusService {
 	
 	public List<RentalStatus> showRentalBooks(User user){
 		return daoRental.selectRentalStatusByUserNo(user);
+	}
+	
+	public RentalStatus showUserByBookTitle(Book book) {
+		return daoRental.selectRentalStatusByBookNo(book);
 	}
 	
 }

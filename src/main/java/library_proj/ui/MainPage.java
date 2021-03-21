@@ -100,6 +100,7 @@ public class MainPage extends JFrame implements ActionListener {
 		pBook.add(pBookList, BorderLayout.CENTER);
 
 		pBookRentalList = pUserList.getpBookRentalList();
+		pBookRentalList.setService(rentalService);
 		contentPane.add(pBookRentalList, BorderLayout.SOUTH);
 	}
 

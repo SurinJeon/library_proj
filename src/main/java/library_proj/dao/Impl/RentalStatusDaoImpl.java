@@ -110,15 +110,57 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 		return null;
 	}
 
+	@Override
+	public RentalStatus selectRentalStatusByBookNo(Book book) {
+		String sql = "select rentalno, bookno, userno, rentaldate, userreturndate, delaydate"
+				+ " from vw_all where bookno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookNo());
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					return getRentalStatusForView(rs);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 
 	private RentalStatus getRentalStatusForView(ResultSet rs) {
+		/*
+		 * int rentalNo = 0;
 		Book bookNo = null;
+		User userNo = null;
 		Date rentalDate = null;
+		Date userReturnDate = null;
 		int delayDate = 0;
+		 */
+		int rentalNo = 0;
+		Book bookNo = null;
+		User userNo = null;
+		Date rentalDate = null;
+		Date userReturnDate = null;
+		int delayDate = 0;
+		
+		try {
+			rentalNo = rs.getInt("rentalno");
+		} catch (SQLException e) {
+		}
 
 		try {
 			bookNo = new Book(rs.getString("bookno"));
 			bookNo.setBookTitle(rs.getString("booktitle"));
+		} catch (SQLException e) {
+		}
+		
+		try {
+			userNo = new User(rs.getInt("userno"));
 		} catch (SQLException e) {
 		}
 
@@ -126,13 +168,18 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 			rentalDate = rs.getDate("rentaldate");
 		} catch (SQLException e) {
 		}
-		
+
+		try {
+			userReturnDate = rs.getDate("userreturndate");
+		} catch (SQLException e) {
+		}
+
 		try {
 			delayDate = rs.getInt("delayDate");
 		} catch (SQLException e) {
 		}
 		
-		return new RentalStatus(bookNo, rentalDate, delayDate);
+		return new RentalStatus(rentalNo, bookNo, userNo, rentalDate, userReturnDate, delayDate);
 	}
 
 	@Override
