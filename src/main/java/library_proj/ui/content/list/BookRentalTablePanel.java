@@ -88,9 +88,10 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 			
 			RentalPage frame = new RentalPage();
 			frame.setVisible(true);
-			pUserDetail = new UserDetailPanel();
-			frame.setpUserDetail(pUserDetail);
-			pUserDetail.setUser(userDetail);
+			frame.getpUserDetail().setUser(userDetail);
+//			pUserDetail = new UserDetailPanel();
+//			pUserDetail.setUser(userDetail);
+//			frame.setpUserDetail(pUserDetail);
 		}
 	}
 

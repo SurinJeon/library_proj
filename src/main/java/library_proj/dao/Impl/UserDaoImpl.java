@@ -117,7 +117,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> selectUserByName(User user) {
 		String sql = "select userno, username, userbirth, account, tel, phone, address from user where username like ?";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setString(1, user.getUserName());
+			pstmt.setString(1, "%"+user.getUserName() +"%");
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
