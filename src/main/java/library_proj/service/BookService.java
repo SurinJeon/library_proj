@@ -41,4 +41,5 @@ public class BookService {
 	public List<Book> showBooksByCategoryForRent(Book book){
 		return daoBook.selectBookByCategoryForRent(book);
 	}
+	
 }

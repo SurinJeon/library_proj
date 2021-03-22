@@ -351,7 +351,10 @@ public class BookDaoImpl implements BookDao {
 	public Book selectBookByNoForDetail(Book book) {
 		String sql = "select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalrange"
 				+ " from vw_book"
-				+ " where bookno = ? and isRented = 1";
+				+ " where bookno = ?";
+//		String sql = "select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalrange"
+//				+ " from vw_book"
+//				+ " where bookno = ? and isRented = 1";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){

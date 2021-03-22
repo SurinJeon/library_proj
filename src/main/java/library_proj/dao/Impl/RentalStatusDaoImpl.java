@@ -11,6 +11,7 @@ import java.util.List;
 
 import library_proj.dao.RentalStatusDao;
 import library_proj.dto.Book;
+import library_proj.dto.BookCategory;
 import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
 import library_proj.util.JdbcUtil;
@@ -112,8 +113,29 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 
 	@Override
 	public RentalStatus selectRentalStatusByBookNo(Book book) {
-		String sql = "select rentalno, bookno, userno, rentaldate, userreturndate, delaydate"
+		String sql = "select rentalno, bookno, booktitle, userno, rentaldate, userreturndate, delaydate"
 				+ " from vw_all where bookno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, book.getBookNo());
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					return getRentalStatusForView(rs);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	@Override
+	public RentalStatus selectRentalStatusByBookNoBookView(Book book) {
+		String sql = "select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalrange"
+				+ " from vw_book where bookno = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
@@ -156,6 +178,7 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 		try {
 			bookNo = new Book(rs.getString("bookno"));
 			bookNo.setBookTitle(rs.getString("booktitle"));
+			bookNo.setBookCategory(new BookCategory(rs.getString("bookcategory")));
 		} catch (SQLException e) {
 		}
 		

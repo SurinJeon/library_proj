@@ -91,3 +91,20 @@ as
 select b.bookno, b.booktitle, b.isRented, c.bookcategory, c.categoryname, b.count, b.rentalrange from book b left join bookcategory c on b.bookcategory = c.bookcategory; 
 
 select * from vw_book;
+
+select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalrange
+ from vw_book
+ where bookno = '40002-1' and isRented = 1;
+
+
+select bookno, booktitle, isRented, bookcategory, count, rentalrange
+ from vw_all where userno = 12001;
+
+select * from vw_all;
+
+
+update rentalstatus r left join book b on r.bookno = b.bookno left join user u on r.userno = u.userno
+ set r.delaydate = curdate() - (r.rentaldate + b.rentalrange)
+ where u.userno = 12002;
+ 
+select * from rentalstatus;

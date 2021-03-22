@@ -20,4 +20,8 @@ public class RentalStatusService {
 		return daoRental.selectRentalStatusByBookNo(book);
 	}
 	
+	public RentalStatus showUserByBookTitleBookView(Book book) {
+		return daoRental.selectRentalStatusByBookNoBookView(book);
+	}
+	
 }

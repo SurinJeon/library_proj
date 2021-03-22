@@ -140,6 +140,9 @@ select r.userno, u.username, u.tel, u.phone
   from rentalstatus r left join user u on r.userno = u.userno left join book b on r.bookno = b.bookno 
  where u.userno = 12001;
 
+select rentalno, bookno, booktitle, userno, rentaldate, userreturndate, delaydate
+ from vw_all where userno = 12001;
+
 update rentalstatus r left join book b on r.bookno = b.bookno left join user u on r.userno = u.userno 
    set r.delaydate = curdate() - (r.rentaldate + b.rentalrange)
  where u.userno = 12001;

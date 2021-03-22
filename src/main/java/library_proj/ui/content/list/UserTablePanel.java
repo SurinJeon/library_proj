@@ -9,9 +9,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import library_proj.dto.Book;
 import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
+import library_proj.service.BookService;
 import library_proj.service.RentalStatusService;
+import library_proj.service.ReturnSearchService;
 import library_proj.service.UserService;
 import library_proj.ui.RentalPage;
 import library_proj.ui.content.SearchUserComboBox;
@@ -22,19 +25,21 @@ import library_proj.ui.exception.NullListException;
 public class UserTablePanel extends AbstractCustomTablePanel<User> implements MouseListener{
 	
 	private UserService service;
+	private BookService bookService;
 	private SearchUserComboBox pcmbUser;
 	private RentalStatusService rentalService;
 //	private List<User> userList;
 	private List<RentalStatus> rentList;
 	private BookRentalTablePanel pBookRentalList;
 	private UserDetailPanel pUserDetail;
+	private ReturnSearchService rsService;
 	
 	public UserTablePanel() {
 		table.addMouseListener(this);
 //		list = new ArrayList<User>();
 		pBookRentalList = new BookRentalTablePanel();
 		rentalService = new RentalStatusService();
-		
+		rsService = new ReturnSearchService();
 	}
 
 	@Override
@@ -76,6 +81,22 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
+		if(e.getClickCount() == 2) {
+			JTable table = (JTable)e.getSource();
+			int idx = table.getSelectedRow();
+			int userNo = (Integer)table.getValueAt(idx, 0);
+			System.out.println(userNo);
+			// 1. rentalstatus에서 bookNo로 검색을 한 다음 userNo를 찾기 << dao작성해야됨
+			// 2. 그 userNo를 통해서 rentalpage에 setUser하기!
+		
+			User userDetail = service.showUserByUserNoForDetail(new User(userNo));
+			
+			RentalPage frame = new RentalPage();
+			frame.setVisible(true);
+			frame.getpUserDetail().setUser(userDetail);
+		}
+		
+		
 		if(e.getClickCount() == 1) {
 			try {
 				List<RentalStatus> rentList = new ArrayList<RentalStatus>();
@@ -83,23 +104,21 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 				int idx = table.getSelectedRow();
 				int userNo = (int) table.getValueAt(idx, 0);
 				rentList = rentalService.showRentalBooks(new User(userNo));
+				
 				if(rentList != null) {
-
-					//			rentList.stream().forEach(System.out::println);
-
+					rentList.stream().forEach(System.out::println);
 					pBookRentalList.setList(rentList);
 					pBookRentalList.setList();
 				} else {
 					List list = new ArrayList();
 					pBookRentalList.setList(list);
 					pBookRentalList.setList();
-
-					throw new NullListException("대여도서가 없습니다.");
 				}
 			} catch (NullListException e1) {
-				JOptionPane.showMessageDialog(null, e1.getMessage());
+				e1.printStackTrace();
 			}
 		}
+	
 	
 	}
 
