@@ -32,6 +32,7 @@ public class MainPage extends JFrame implements ActionListener {
 	private UserTablePanel pUserList;
 	private BookRentalTablePanel pBookRentalList;
 	private BookTablePanel pBookList;
+	private JButton btnUserMng;
 	
 	public MainPage() {
 		userService = new UserService();
@@ -63,7 +64,8 @@ public class MainPage extends JFrame implements ActionListener {
 		btnReturn.addActionListener(this);
 		pBtn.add(btnReturn);
 		
-		JButton btnUserMng = new JButton("회원관리");
+		btnUserMng = new JButton("회원관리");
+		btnUserMng.addActionListener(this);
 		pBtn.add(btnUserMng);
 		
 		JButton btnBookMng = new JButton("도서관리");
@@ -105,6 +107,9 @@ public class MainPage extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnUserMng) {
+			actionPerformedBtnUserMng(e);
+		}
 		if (e.getSource() == btnReturn) {
 			actionPerformedBtnReturn(e);
 		}
@@ -123,4 +128,8 @@ public class MainPage extends JFrame implements ActionListener {
 		frame.setVisible(true);
 	}
 	
+	protected void actionPerformedBtnUserMng(ActionEvent e) {
+		UserMngPage frame = new UserMngPage();
+		frame.setVisible(true);
+	}
 }

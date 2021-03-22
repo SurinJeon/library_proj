@@ -2,9 +2,12 @@ package library_proj.ui.content.list;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
@@ -12,13 +15,15 @@ import javax.swing.table.TableColumnModel;
 
 import library_proj.dto.Book;
 import library_proj.service.BookService;
+import library_proj.ui.RentalPage;
 
 @SuppressWarnings("serial")
-public class BookTablePanel extends AbstractCustomTablePanel<Book> {
+public class BookTablePanel extends AbstractCustomTablePanel<Book> implements MouseListener{
 
 	private BookService service;
 	
 	public BookTablePanel() {
+		table.addMouseListener(this);
 		
 	}
 
@@ -88,6 +93,45 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> {
 
 	public void setList(List<Book> list) {
 		this.list = list;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount() == 2) {
+			JTable table = (JTable)e.getSource();
+			int idx = table.getSelectedRow();
+			String searchBookNo = (String)table.getValueAt(idx, 0);
+			
+			Book book = service.showBooksByNoForDetail(new Book(searchBookNo));
+			
+			if (book != null && book.getIsRented() != 0) {
+				RentalPage frame = new RentalPage();
+				frame.getpBookDetail().setBook(book);
+				frame.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "대여가 불가능한 도서입니다.");
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
 	}
 	
 }

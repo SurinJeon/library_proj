@@ -7,35 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
+import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class UserMngPage extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserMngPage frame = new UserMngPage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public UserMngPage() {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,17 +28,23 @@ public class UserMngPage extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
+		JPanel pAddUser = new JPanel();
+		tabbedPane.addTab("회원 추가", null, pAddUser, null);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		JPanel pModifyUser = new JPanel();
+		tabbedPane.addTab("회원 수정", null, pModifyUser, null);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
+		JPanel pDeleteUser = new JPanel();
+		tabbedPane.addTab("회원 삭제", null, pDeleteUser, null);
 		
-		JPanel panel_3 = new JPanel();
-		contentPane.add(panel_3, BorderLayout.SOUTH);
+		JPanel pBtn = new JPanel();
+		contentPane.add(pBtn, BorderLayout.SOUTH);
+		
+		JButton btnConfrim = new JButton("확인");
+		pBtn.add(btnConfrim);
+		
+		JButton btnCancel = new JButton("취소");
+		pBtn.add(btnCancel);
 	}
 
 }

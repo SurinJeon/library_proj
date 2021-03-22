@@ -53,7 +53,7 @@ public class RentalPage extends JFrame implements ActionListener {
 	private void initialize() {
 		setTitle("대출화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 648, 800);
+		setBounds(100, 100, 700, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		setContentPane(contentPane);
@@ -163,6 +163,14 @@ public class RentalPage extends JFrame implements ActionListener {
 	public void setpUserDetail(UserDetailPanel pUserDetail) {
 		this.pUserDetail = pUserDetail;
 	}
+	public BookDetailPanel getpBookDetail() {
+		return pBookDetail;
+	}
+	public void setpBookDetail(BookDetailPanel pBookDetail) {
+		this.pBookDetail = pBookDetail;
+	}
+	
+	
 	
 	
 }

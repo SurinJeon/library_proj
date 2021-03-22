@@ -100,19 +100,7 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
 		}
-		
-		// 옮김
-//		if(e.getClickCount() == 2) {
-////			pUserDetail = new UserDetailPanel();
-//			JTable table = (JTable)e.getSource();
-//			int idx = table.getSelectedRow();
-//			int userNo = (int) table.getValueAt(idx, 0);
-//			User searchUser = service.showUserByUserNoForDetail(new User(userNo));
-//			
-//			RentalPage frame = new RentalPage();
-////			frame.setpUserDetail(pUserDetail);
-//			frame.setVisible(true);
-//		}
+	
 	}
 
 	@Override
