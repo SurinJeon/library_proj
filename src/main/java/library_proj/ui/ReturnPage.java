@@ -4,35 +4,44 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import library_proj.dto.Book;
+import library_proj.dto.User;
+import library_proj.service.ReturnService;
 import library_proj.service.UserService;
-import library_proj.ui.content.SearchUserComboBoxForReturn;
-import library_proj.ui.content.list.UserTablePanelForReturn;
-import library_proj.ui.content.UserDetailPanel;
-import library_proj.ui.content.list.BookRentalTablePanel;
 import library_proj.ui.content.BookDetailPanel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import library_proj.ui.content.SearchUserComboBoxForReturn;
+import library_proj.ui.content.UserDetailPanel;
+import library_proj.ui.content.list.BookRentalTablePanelForReturn;
+import library_proj.ui.content.list.UserTablePanelForReturn;
 
 @SuppressWarnings("serial")
-public class ReturnPage extends JFrame {
+public class ReturnPage extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private SearchUserComboBoxForReturn pCmbUser;
 	private UserService userService;
+	private ReturnService returnService;
 	private UserTablePanelForReturn pUserList;
 	private UserDetailPanel pUserDetail;
-	private BookRentalTablePanel pBookRentalList;
+	private BookRentalTablePanelForReturn pBookRentalList;
 	private BookDetailPanel pBookRentalDetail;
+	private JButton btnReturn;
 	
 	public ReturnPage() {
 		userService = new UserService();
+		returnService = new ReturnService();
 		initialize();
 	}
 	private void initialize() {
@@ -80,10 +89,10 @@ public class ReturnPage extends JFrame {
 		lblText.setHorizontalAlignment(SwingConstants.CENTER);
 		pText.add(lblText);
 		
-		pBookRentalList = new BookRentalTablePanel();
+		pBookRentalList = pUserList.getpBookRentalList();
 		pSearch2.add(pBookRentalList, BorderLayout.CENTER);
 		
-		pBookRentalDetail = new BookDetailPanel();
+		pBookRentalDetail = pBookRentalList.getpBookRentalDetail();
 		pCenter.add(pBookRentalDetail);
 		
 		JPanel pBtn = new JPanel();
@@ -91,7 +100,8 @@ public class ReturnPage extends JFrame {
 		fl_pBtn.setAlignment(FlowLayout.TRAILING);
 		contentPane.add(pBtn, BorderLayout.SOUTH);
 		
-		JButton btnReturn = new JButton("반납하기");
+		btnReturn = new JButton("반납하기");
+		btnReturn.addActionListener(this);
 		pBtn.add(btnReturn);
 		
 		JButton btnCancel = new JButton("취소");
@@ -110,7 +120,42 @@ public class ReturnPage extends JFrame {
 		this.pBookRentalDetail = pBookRentalDetail;
 	} 
 
-	
-	
-
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnReturn) {
+			actionPerformedBtnReturn(e);
+		}
+	}
+	protected void actionPerformedBtnReturn(ActionEvent e) {
+		User user = pUserDetail.getUser();
+		Book book = pBookRentalDetail.getBook();
+		
+		System.out.println(user);
+		System.out.println(book);
+		
+		if(user != null && book != null) {
+			returnService.transReturn(book);
+		} else {
+			if(user == null) {
+				JOptionPane.showMessageDialog(null, "회원을 선택해주세요.");
+			} else if(book != null){
+				JOptionPane.showMessageDialog(null, "도서를 선택해주세요.");
+			}
+		}
+		
+		JOptionPane.showMessageDialog(null, "반납이 완료되었습니다.");
+		
+		pUserDetail.clearTf();
+		pBookRentalDetail.clearTf();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

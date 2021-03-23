@@ -16,5 +16,5 @@ public interface RentalStatusDao {
 	int deleteRentalStatus(RentalStatus rentalstatus);
 	RentalStatus selectRentalStatusByBookNo(Book book);
 	RentalStatus selectRentalStatusByBookNoBookView(Book book);
-	
+	int updateRentalStatusLogIn();
 }

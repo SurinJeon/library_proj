@@ -2,12 +2,15 @@ package library_proj.ui.content.list;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
+import library_proj.service.RentalStatusService;
 import library_proj.service.UserService;
 import library_proj.ui.content.SearchUserComboBoxForReturn;
 import library_proj.ui.content.UserDetailPanel;
@@ -16,12 +19,17 @@ import library_proj.ui.content.UserDetailPanel;
 public class UserTablePanelForReturn extends AbstractCustomTablePanel<User> implements MouseListener{
 	
 	private UserService service;
+	private RentalStatusService rsService;
 	private SearchUserComboBoxForReturn pcmbUser;
 	private UserDetailPanel pUserDetail;
+	private BookRentalTablePanelForReturn pBookRentalList;
 	
 	public UserTablePanelForReturn() {
 		table.addMouseListener(this);
+		rsService = new RentalStatusService();
+		pBookRentalList = new BookRentalTablePanelForReturn();
 		pUserDetail = new UserDetailPanel();
+		pBookRentalList = new BookRentalTablePanelForReturn();
 	}
 
 	@Override
@@ -62,12 +70,24 @@ public class UserTablePanelForReturn extends AbstractCustomTablePanel<User> impl
 			int idx = table.getSelectedRow();
 			int userNo = (int)table.getValueAt(idx, 0);
 			
+			// detail에 setting
 			User searchUser = service.showUserByUserNoForDetail(new User(userNo));
 			if (searchUser != null) {
-				// 1. 해당 행 가져와서
-				// 2. 그 행을 service에서 서치한 것을 setting
 				pUserDetail.setUser(searchUser);
 			}
+			
+			List<RentalStatus> list = rsService.showRentalBooks(new User(userNo));
+			List blankList = new ArrayList();
+			
+			if(list != null) {
+				pBookRentalList.setList(list);
+				pBookRentalList.setList();
+			} else {
+				pBookRentalList.setList(blankList);
+				pBookRentalList.setList();
+			}
+			
+	
 			
 		} catch (Exception e1) {
 		}
@@ -95,5 +115,10 @@ public class UserTablePanelForReturn extends AbstractCustomTablePanel<User> impl
 	public UserDetailPanel getpUserDetail() {
 		return pUserDetail;
 	}
+
+	public BookRentalTablePanelForReturn getpBookRentalList() {
+		return pBookRentalList;
+	}
+	
 	
 }

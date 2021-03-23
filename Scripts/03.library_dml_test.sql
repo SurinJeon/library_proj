@@ -154,13 +154,9 @@ select b.bookno, b.booktitle, r.delaydate, r.rentaldate
  where u.userno = 12001;
 
 -- 반납버튼 누르기 (트랜잭션 시작)
-update rentalstatus
-   set userreturndate = curdate()
- where bookno = '40001-1';
+update rentalstatus set userreturndate = curdate() where bookno = '40001-1';
 
-update book
-   set isRented = 1
- where bookno = '40001-1';
+update book set isRented = 1 where bookno = '40001-1';
 -- 트랜잭션 끝
 select * from rentalstatus;
 select * from book;

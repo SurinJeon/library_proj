@@ -45,11 +45,14 @@ select * from rentalstatus r left join user u on r.userno = u.userno;
 
 select userno, username, userbirth, account, tel, phone, address from vw_user;
 
+drop view vw_all;
 
 create view vw_all
 as
-select r.rentalno, b.bookno, u.userno, r.rentaldate, r.userreturndate, r.delaydate, u.username,u.userbirth,u.account,u.tel,u.phone,u.address,b.booktitle,b.isRented,b.bookcategory,b.count,b.rentalrange 
-from rentalstatus r left join user u on r.userno = u.userno left join book b on r.bookno = b.bookno;
+select r.rentalno, b.bookno, u.userno, r.rentaldate, r.userreturndate, r.delaydate, u.username,u.userbirth,u.account,u.tel,u.phone,u.address,b.booktitle,b.isRented,b.bookcategory, b2.categoryname,b.count,b.rentalrange 
+from rentalstatus r left join user u on r.userno = u.userno left join book b on r.bookno = b.bookno left join bookcategory b2 on b.bookcategory = b2.bookcategory;
+
+
 
 select * from vw_all;
 select rentalno,bookno,userno,rentaldate,userreturndate,delaydate,username,userbirth,account,tel,phone,address,booktitle,isRented,bookcategory,count,rentalrange
@@ -100,7 +103,8 @@ select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalran
 select bookno, booktitle, isRented, bookcategory, count, rentalrange
  from vw_all where userno = 12001;
 
-select * from vw_all;
+
+select rentalno, bookno, userno, rentaldate, userreturndate, delaydate, username, userbirth, account, tel, phone, address, booktitle, isRented, bookcategory, count, rentalrange from vw_all;
 
 
 update rentalstatus r left join book b on r.bookno = b.bookno left join user u on r.userno = u.userno
@@ -108,3 +112,18 @@ update rentalstatus r left join book b on r.bookno = b.bookno left join user u o
  where u.userno = 12002;
  
 select * from rentalstatus;
+
+update rentalstatus r left join book b on r.bookno = b.bookno left join user u on r.userno = u.userno
+ set r.delaydate = curdate() - (r.rentaldate + b.rentalrange)
+ where r.userreturndate is null;
+
+update rentalstatus r left join book b on r.bookno = b.bookno
+   set delaydate = userreturndate - (rentaldate + b.rentalrange)
+ where b.bookno = '40001-1';
+
+update rentalstatus r left join book b on r.bookno = b.bookno
+   set delaydate = null;
+  
+  
+select * from rentalstatus;
+select * from book;

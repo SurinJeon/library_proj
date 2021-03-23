@@ -15,7 +15,6 @@ public class RentalStatusService {
 	public List<RentalStatus> showRentalBooks(User user){
 		return daoRental.selectRentalStatusByUserNo(user);
 	}
-	
 	public RentalStatus showUserByBookTitle(Book book) {
 		return daoRental.selectRentalStatusByBookNo(book);
 	}
@@ -24,4 +23,8 @@ public class RentalStatusService {
 		return daoRental.selectRentalStatusByBookNoBookView(book);
 	}
 	
+	public int updateRentalStatusLogIn() {
+		return daoRental.updateRentalStatusLogIn();
+	}
+
 }

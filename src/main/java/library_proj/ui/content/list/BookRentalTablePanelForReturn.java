@@ -16,21 +16,22 @@ import library_proj.service.RentalStatusService;
 import library_proj.service.UserService;
 import library_proj.ui.RentalPage;
 import library_proj.ui.ReturnPage;
+import library_proj.ui.content.BookDetailPanel;
 import library_proj.ui.content.UserDetailPanel;
 
 @SuppressWarnings("serial")
-public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus> implements MouseListener{
+public class BookRentalTablePanelForReturn extends AbstractCustomTablePanel<RentalStatus> implements MouseListener{
 	private RentalStatusService service;
 	private UserService userService;
 	private UserDetailPanel pUserDetail;
 	private BookService bookService;
-//	private ReturnSearchService rsService;
+	private BookDetailPanel pBookRentalDetail;
 	
-	public BookRentalTablePanel() {
+	public BookRentalTablePanelForReturn() {
 		userService = new UserService();
 		bookService = new BookService();
-//		rsService = new ReturnSearchService();
 		list = new ArrayList<RentalStatus>();
+		pBookRentalDetail = new BookDetailPanel();
 		table.addMouseListener(this);
 		
 	}
@@ -74,24 +75,14 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
-		if(e.getClickCount() == 2) {
-			JTable table = (JTable)e.getSource();
-			int idx = table.getSelectedRow();
-			String bookNo = (String)table.getValueAt(idx, 0);
-			
-			RentalStatus rentalstatus = service.showUserByBookTitle(new Book(bookNo));
-			int userNo = rentalstatus.getUserNo().getUserNo();
-			User userDetail = userService.showUserByUserNoForDetail(new User(userNo));
-			Book book = bookService.showBooksByNoForDetail(new Book(bookNo));
-			System.out.println("book");
-			System.out.println(book);
-			
-			ReturnPage frame = new ReturnPage();
-			frame.getpUserDetail().setUser(userDetail);
-			frame.getpBookRentalDetail().setBook(book);
-			frame.setVisible(true);
-		}
+		
+		JTable table = (JTable)e.getSource();
+		int idx = table.getSelectedRow();
+		String bookNo = (String)table.getValueAt(idx, 0);
+		
+		Book searchBook = bookService.showBooksByNoForDetail(new Book(bookNo));
+		// 책번호로 pBookDetail 설정
+		pBookRentalDetail.setBook(searchBook);
 	}
 
 	@Override
@@ -113,4 +104,10 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 	public void mouseExited(MouseEvent e) {
 		
 	}
+
+	public BookDetailPanel getpBookRentalDetail() {
+		return pBookRentalDetail;
+	}
+	
+	
 }

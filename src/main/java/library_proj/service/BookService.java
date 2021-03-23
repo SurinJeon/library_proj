@@ -5,6 +5,7 @@ import java.util.List;
 import library_proj.dao.BookDao;
 import library_proj.dao.Impl.BookDaoImpl;
 import library_proj.dto.Book;
+import library_proj.dto.User;
 
 public class BookService {
 
@@ -42,4 +43,7 @@ public class BookService {
 		return daoBook.selectBookByCategoryForRent(book);
 	}
 	
+	public List<Book> showBooksByUserNo(User user){
+		return daoBook.selectBookByUserNo(user);
+	}
 }

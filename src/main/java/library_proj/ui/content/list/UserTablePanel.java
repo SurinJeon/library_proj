@@ -14,7 +14,6 @@ import library_proj.dto.RentalStatus;
 import library_proj.dto.User;
 import library_proj.service.BookService;
 import library_proj.service.RentalStatusService;
-import library_proj.service.ReturnSearchService;
 import library_proj.service.UserService;
 import library_proj.ui.RentalPage;
 import library_proj.ui.content.SearchUserComboBox;
@@ -32,14 +31,12 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	private List<RentalStatus> rentList;
 	private BookRentalTablePanel pBookRentalList;
 	private UserDetailPanel pUserDetail;
-	private ReturnSearchService rsService;
 	
 	public UserTablePanel() {
 		table.addMouseListener(this);
 //		list = new ArrayList<User>();
 		pBookRentalList = new BookRentalTablePanel();
 		rentalService = new RentalStatusService();
-		rsService = new ReturnSearchService();
 	}
 
 	@Override

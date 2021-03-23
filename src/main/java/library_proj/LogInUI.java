@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 
 import library_proj.dto.Manager;
 import library_proj.service.ManagerService;
+import library_proj.service.RentalService;
+import library_proj.service.RentalStatusService;
 import library_proj.ui.MainPage;
 import library_proj.ui.content.LogInPanel;
 import library_proj.ui.exception.InvalidCheckException;
@@ -25,6 +27,7 @@ public class LogInUI extends JFrame implements ActionListener {
 	private JButton btnLogIn;
 	private LogInPanel pLogIn;
 	private ManagerService service;
+	private RentalStatusService rentalService;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,6 +44,7 @@ public class LogInUI extends JFrame implements ActionListener {
 
 	public LogInUI() {
 		service = new ManagerService();
+		rentalService = new RentalStatusService();
 		initialize();
 	}
 	private void initialize() {
@@ -71,6 +75,8 @@ public class LogInUI extends JFrame implements ActionListener {
 
 			if( mng != null) {
 				if(mng.getMngAccount().equals(searchMn.getMngAccount()) && mng.getPasswd().equals(searchMn.getPasswd())) {
+					rentalService.updateRentalStatusLogIn(); // 연체일 update
+					
 					MainPage frame = new MainPage();
 					frame.setVisible(true);
 					dispose();
