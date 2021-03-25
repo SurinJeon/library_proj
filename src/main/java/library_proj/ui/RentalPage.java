@@ -169,8 +169,12 @@ public class RentalPage extends JFrame implements ActionListener {
 	public void setpBookDetail(BookDetailPanel pBookDetail) {
 		this.pBookDetail = pBookDetail;
 	}
-	
-	
+	public UserTablePanelForRent getpUserList() {
+		return pUserList;
+	}
+	public void setpUserList(UserTablePanelForRent pUserList) {
+		this.pUserList = pUserList;
+	}
 	
 	
 }

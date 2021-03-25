@@ -13,7 +13,6 @@ public class UserService {
 	public List<User> showUsers(){
 
 		List<User> list = daoUser.selectUserByAllForList();
-		list.stream().forEach(System.out::println);
 		return daoUser.selectUserByAllForList();
 	}
 	

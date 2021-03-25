@@ -7,7 +7,6 @@ import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
@@ -16,6 +15,7 @@ import javax.swing.table.TableColumnModel;
 import library_proj.dto.Book;
 import library_proj.service.BookService;
 import library_proj.ui.RentalPage;
+import library_proj.ui.ReturnPage;
 
 @SuppressWarnings("serial")
 public class BookTablePanel extends AbstractCustomTablePanel<Book> implements MouseListener{
@@ -109,7 +109,11 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 				frame.getpBookDetail().setBook(book);
 				frame.setVisible(true);
 			} else {
-				JOptionPane.showMessageDialog(null, "대여가 불가능한 도서입니다.");
+				ReturnPage frame = new ReturnPage();
+				frame.getpBookRentalDetail().setBook(book);
+				frame.setVisible(true);
+				// 반납 도서로 넘겨야됨(setting)
+				
 			}
 		}
 	}

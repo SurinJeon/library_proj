@@ -34,7 +34,6 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	
 	public UserTablePanel() {
 		table.addMouseListener(this);
-//		list = new ArrayList<User>();
 		pBookRentalList = new BookRentalTablePanel();
 		rentalService = new RentalStatusService();
 	}
@@ -55,7 +54,6 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	@Override
 	protected void initList() {
 		list = service.showUsers();
-//		list = pcmbUser.getList();
 	}
 
 	@Override
@@ -82,7 +80,6 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 			JTable table = (JTable)e.getSource();
 			int idx = table.getSelectedRow();
 			int userNo = (Integer)table.getValueAt(idx, 0);
-			System.out.println(userNo);
 			// 1. rentalstatus에서 bookNo로 검색을 한 다음 userNo를 찾기 << dao작성해야됨
 			// 2. 그 userNo를 통해서 rentalpage에 setUser하기!
 		
@@ -91,6 +88,11 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 			RentalPage frame = new RentalPage();
 			frame.setVisible(true);
 			frame.getpUserDetail().setUser(userDetail);
+//			frame.getpUserList().table.
+			frame.getpUserList().table.setRowSelectionInterval(idx, idx);
+//			table.setRowSelectionInterval(idx, idx);			
+			// userNo int값이랑 해당 cell value같은지 반복문 돌려서 알아내기>> setRowSelectionInterval(idx, idx); 하기
+			
 		}
 		
 		
@@ -103,7 +105,6 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 				rentList = rentalService.showRentalBooks(new User(userNo));
 				
 				if(rentList != null) {
-					rentList.stream().forEach(System.out::println);
 					pBookRentalList.setList(rentList);
 					pBookRentalList.setList();
 				} else {

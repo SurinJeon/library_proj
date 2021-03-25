@@ -84,13 +84,13 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 			int userNo = rentalstatus.getUserNo().getUserNo();
 			User userDetail = userService.showUserByUserNoForDetail(new User(userNo));
 			Book book = bookService.showBooksByNoForDetail(new Book(bookNo));
-			System.out.println("book");
-			System.out.println(book);
 			
 			ReturnPage frame = new ReturnPage();
 			frame.getpUserDetail().setUser(userDetail);
 			frame.getpBookRentalDetail().setBook(book);
 			frame.setVisible(true);
+			
+			//회원/도서목록 select되게 해야함
 		}
 	}
 

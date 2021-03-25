@@ -66,7 +66,6 @@ public class SearchUserComboBox extends JPanel implements ActionListener {
 		List blankList = new ArrayList();
 		try {
 			String searchItem = (String) cmbSearchUser.getSelectedItem();
-			System.out.println(searchItem);
 			list = switchList(searchItem);
 			
 			if(list != null) {
