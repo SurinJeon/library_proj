@@ -132,4 +132,5 @@ public class MainPage extends JFrame implements ActionListener {
 		UserMngPage frame = new UserMngPage();
 		frame.setVisible(true);
 	}
+	
 }

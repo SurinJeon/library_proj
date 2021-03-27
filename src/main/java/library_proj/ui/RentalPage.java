@@ -156,6 +156,7 @@ public class RentalPage extends JFrame implements ActionListener {
 		pUserDetail.clearTf();
 		pBookDetail.clearTf();
 		
+		
 	}
 	public UserDetailPanel getpUserDetail() {
 		return pUserDetail;
@@ -174,6 +175,12 @@ public class RentalPage extends JFrame implements ActionListener {
 	}
 	public void setpUserList(UserTablePanelForRent pUserList) {
 		this.pUserList = pUserList;
+	}
+	public BookTablePanelForRent getpBookList() {
+		return pBookList;
+	}
+	public void setpBookList(BookTablePanelForRent pBookList) {
+		this.pBookList = pBookList;
 	}
 	
 	

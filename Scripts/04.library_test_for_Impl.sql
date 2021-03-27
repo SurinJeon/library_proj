@@ -112,6 +112,13 @@ update rentalstatus r left join book b on r.bookno = b.bookno left join user u o
  where u.userno = 12002;
  
 select * from rentalstatus;
+delete from rentalstatus where bookno = '40006-1';
+
+select * from book where bookno = '40005-2';
+
+update book set isRented = 1 where bookno = '40005-2';
+
+
 
 update rentalstatus r left join book b on r.bookno = b.bookno left join user u on r.userno = u.userno
  set r.delaydate = curdate() - (r.rentaldate + b.rentalrange)
@@ -127,3 +134,4 @@ update rentalstatus r left join book b on r.bookno = b.bookno
   
 select * from rentalstatus;
 select * from book;
+select * from vw_all;

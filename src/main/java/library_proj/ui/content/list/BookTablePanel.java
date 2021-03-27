@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -13,7 +14,12 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import library_proj.dto.Book;
+import library_proj.dto.RentalStatus;
+import library_proj.dto.SubBookTitle;
+import library_proj.dto.User;
 import library_proj.service.BookService;
+import library_proj.service.RentalStatusService;
+import library_proj.service.UserService;
 import library_proj.ui.RentalPage;
 import library_proj.ui.ReturnPage;
 
@@ -21,8 +27,12 @@ import library_proj.ui.ReturnPage;
 public class BookTablePanel extends AbstractCustomTablePanel<Book> implements MouseListener{
 
 	private BookService service;
+	private RentalStatusService rsService;
+	private UserService userService;
 	
 	public BookTablePanel() {
+		rsService = new RentalStatusService();
+		userService = new UserService();
 		table.addMouseListener(this);
 		
 	}
@@ -100,20 +110,57 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 		if(e.getClickCount() == 2) {
 			JTable table = (JTable)e.getSource();
 			int idx = table.getSelectedRow();
-			String searchBookNo = (String)table.getValueAt(idx, 0);
+			String bookNo = (String)table.getValueAt(idx, 0);
+			String bookTitle = (String)table.getValueAt(idx, 1);
+			Book bookDetail = service.showBooksByNoForDetail(new Book(bookNo));
 			
-			Book book = service.showBooksByNoForDetail(new Book(searchBookNo));
-			
-			if (book != null && book.getIsRented() != 0) {
+			if (bookDetail != null && bookDetail.getIsRented() != 0) {
 				RentalPage frame = new RentalPage();
-				frame.getpBookDetail().setBook(book);
+				frame.getpBookDetail().setBook(bookDetail);
 				frame.setVisible(true);
-			} else {
-				ReturnPage frame = new ReturnPage();
-				frame.getpBookRentalDetail().setBook(book);
-				frame.setVisible(true);
-				// 반납 도서로 넘겨야됨(setting)
 				
+				List<Book> searchBook = frame.getpBookList().getList().stream()
+						.filter(book -> book.getBookNo().equals(bookNo))
+						.collect(Collectors.toList());
+				Book book = searchBook.get(0);
+				int idxRent = frame.getpBookList().getList().indexOf(book);
+				frame.getpBookList().table.setRowSelectionInterval(idxRent, idxRent);
+				
+			} else {
+				RentalStatus user = rsService.showUserByBookTitleNoView(new Book(bookNo));
+				
+				ReturnPage frame = new ReturnPage();
+				
+				// user 찾아서 셀 선택되게 하기
+				List<User> searchUser = frame.getpUserList().getList()
+						.stream().filter(userList -> userList.getUserNo()==user.getUserNo().getUserNo())
+						.collect(Collectors.toList());
+				
+				User userForList = searchUser.get(0);
+				User userForDetail = userService.showUserByUserNoForDetail(new User(user.getUserNo().getUserNo()));
+				int idxRent = frame.getpUserList().getList().indexOf(userForList);
+				frame.getpUserList().table.setRowSelectionInterval(idxRent, idxRent);
+				
+				// userDetail에 값 채우기
+				frame.getpUserDetail().setUser(userForDetail);
+				
+				// bookRentalDatail에 값 채우기
+				frame.getpBookRentalDetail().setBook(bookDetail);
+				
+				//bookRentalList 뜨게하기
+				List<RentalStatus> list = rsService.showRentalBooks(new User(user.getUserNo().getUserNo()));
+				frame.getpBookRentalList().setList(list);
+				frame.getpBookRentalList().setList();
+				
+				// bookRentalList 셀 선택되게 하기
+				List<RentalStatus> searchRentalStatus = list.stream()
+						.filter(rentalList -> rentalList.getBookNo().getBookNo().equals(bookNo))
+						.collect(Collectors.toList());
+				RentalStatus rentalStatus = searchRentalStatus.get(0);
+				int idxRs = frame.getpBookRentalList().getList().indexOf(rentalStatus);
+				frame.getpBookRentalList().table.setRowSelectionInterval(idxRs, idxRs);
+				
+				frame.setVisible(true);
 			}
 		}
 	}

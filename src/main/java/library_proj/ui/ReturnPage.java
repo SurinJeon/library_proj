@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -90,6 +92,7 @@ public class ReturnPage extends JFrame implements ActionListener {
 		pText.add(lblText);
 		
 		pBookRentalList = pUserList.getpBookRentalList();
+		pBookRentalList.loadData();
 		pSearch2.add(pBookRentalList, BorderLayout.CENTER);
 		
 		pBookRentalDetail = pBookRentalList.getpBookRentalDetail();
@@ -147,6 +150,20 @@ public class ReturnPage extends JFrame implements ActionListener {
 		pUserDetail.clearTf();
 		pBookRentalDetail.clearTf();
 	}
+	public UserTablePanelForReturn getpUserList() {
+		return pUserList;
+	}
+	public void setpUserList(UserTablePanelForReturn pUserList) {
+		this.pUserList = pUserList;
+	}
+	public BookRentalTablePanelForReturn getpBookRentalList() {
+		return pBookRentalList;
+	}
+	public void setpBookRentalList(BookRentalTablePanelForReturn pBookRentalList) {
+		this.pBookRentalList = pBookRentalList;
+	}
+	
+	
 }
 
 

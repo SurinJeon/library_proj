@@ -134,8 +134,8 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 	
 	@Override
 	public RentalStatus selectRentalStatusByBookNoBookView(Book book) {
-		String sql = "select bookno, booktitle, isRented, bookcategory, categoryname, count, rentalrange"
-				+ " from vw_book where bookno = ?";
+		String sql = "select bookno, booktitle, userno, isRented, bookcategory, categoryname, count, rentalrange"
+				+ " from vw_all where bookno = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){

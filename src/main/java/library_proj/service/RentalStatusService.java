@@ -27,4 +27,7 @@ public class RentalStatusService {
 		return daoRental.updateRentalStatusLogIn();
 	}
 
+	public RentalStatus showUserByBookTitleNoView(Book book) {
+		return daoRental.selectRentalStatusByBookNoBookView(book);
+	}
 }

@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -29,7 +30,6 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 	public BookRentalTablePanel() {
 		userService = new UserService();
 		bookService = new BookService();
-//		rsService = new ReturnSearchService();
 		list = new ArrayList<RentalStatus>();
 		table.addMouseListener(this);
 		
@@ -79,19 +79,57 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 			JTable table = (JTable)e.getSource();
 			int idx = table.getSelectedRow();
 			String bookNo = (String)table.getValueAt(idx, 0);
-			
 			RentalStatus rentalstatus = service.showUserByBookTitle(new Book(bookNo));
 			int userNo = rentalstatus.getUserNo().getUserNo();
+			
 			User userDetail = userService.showUserByUserNoForDetail(new User(userNo));
-			Book book = bookService.showBooksByNoForDetail(new Book(bookNo));
+			Book bookDetail = bookService.showBooksByNoForDetail(new Book(bookNo));
 			
 			ReturnPage frame = new ReturnPage();
-			frame.getpUserDetail().setUser(userDetail);
-			frame.getpBookRentalDetail().setBook(book);
+			
+			setUserListAndDetail(userNo, userDetail, frame);
+			
+			List<RentalStatus> list = service.showRentalBooks(new User(userNo));
+			setBookRentalListVisible(frame, list);
+			
+			setBookRentalListAndDetail(bookNo, bookDetail, frame, list);
+			
 			frame.setVisible(true);
 			
-			//회원/도서목록 select되게 해야함
+			//회원/도서목록 select되게 해+야함
 		}
+	}
+
+
+
+	public void setBookRentalListAndDetail(String bookNo, Book bookDetail, ReturnPage frame, List<RentalStatus> list) {
+		List<RentalStatus> searchRentalStatus = list.stream()
+				.filter(rentalList -> rentalList.getBookNo().getBookNo().equals(bookNo))
+				.collect(Collectors.toList());
+		RentalStatus rentalStatus = searchRentalStatus.get(0);
+		int idxRs = frame.getpBookRentalList().getList().indexOf(rentalStatus);
+		frame.getpBookRentalList().table.setRowSelectionInterval(idxRs, idxRs);
+		
+		frame.getpBookRentalDetail().setBook(bookDetail);
+	}
+
+
+
+	public void setBookRentalListVisible(ReturnPage frame, List<RentalStatus> list) {
+		frame.getpBookRentalList().setList(list);
+		frame.getpBookRentalList().setList();
+	}
+
+
+
+	public void setUserListAndDetail(int userNo, User userDetail, ReturnPage frame) {
+		List<User> searchUser = frame.getpUserList().getList()
+				.stream().filter(user -> user.getUserNo()==userNo)
+				.collect(Collectors.toList());
+		User user = searchUser.get(0);
+		int idxRent = frame.getpUserList().getList().indexOf(user);
+		frame.getpUserList().table.setRowSelectionInterval(idxRent, idxRent);
+		frame.getpUserDetail().setUser(userDetail);
 	}
 
 	@Override

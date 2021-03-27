@@ -73,6 +73,12 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 	protected abstract Object[] toArray(T t);
 
 	protected abstract void initList();
+	
+
+	public List<T> getList() {
+		return list;
+	}
+
 
 	private void initialize() {
 		setLayout(new BorderLayout(0, 0));
@@ -99,5 +105,6 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 		}
 
 	}
-
+ 
+ 
 }

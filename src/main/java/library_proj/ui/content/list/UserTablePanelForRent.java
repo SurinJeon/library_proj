@@ -97,4 +97,6 @@ public class UserTablePanelForRent extends AbstractCustomTablePanel<User> implem
 		return pUserDetail;
 	}
 	
+	
+	
 }

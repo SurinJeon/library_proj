@@ -327,7 +327,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User selectUserByNoForDetail(User user) {
-			String sql = "select userno, username, userbirth, account, tel, phone, address from user where userno = ?";
+		String sql = "select userno, username, userbirth, account, tel, phone, address from user where userno = ?";
 			try (Connection con = JdbcUtil.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql);
 					) {

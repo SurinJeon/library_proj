@@ -3,7 +3,9 @@ package library_proj.ui.content.list;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -27,7 +29,6 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	private BookService bookService;
 	private SearchUserComboBox pcmbUser;
 	private RentalStatusService rentalService;
-//	private List<User> userList;
 	private List<RentalStatus> rentList;
 	private BookRentalTablePanel pBookRentalList;
 	private UserDetailPanel pUserDetail;
@@ -80,18 +81,19 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 			JTable table = (JTable)e.getSource();
 			int idx = table.getSelectedRow();
 			int userNo = (Integer)table.getValueAt(idx, 0);
-			// 1. rentalstatus에서 bookNo로 검색을 한 다음 userNo를 찾기 << dao작성해야됨
-			// 2. 그 userNo를 통해서 rentalpage에 setUser하기!
 		
 			User userDetail = service.showUserByUserNoForDetail(new User(userNo));
-			
 			RentalPage frame = new RentalPage();
 			frame.setVisible(true);
 			frame.getpUserDetail().setUser(userDetail);
-//			frame.getpUserList().table.
-			frame.getpUserList().table.setRowSelectionInterval(idx, idx);
-//			table.setRowSelectionInterval(idx, idx);			
-			// userNo int값이랑 해당 cell value같은지 반복문 돌려서 알아내기>> setRowSelectionInterval(idx, idx); 하기
+			
+			
+			List<User> searchUser = frame.getpUserList().getList()
+					.stream().filter(user -> user.getUserNo()==userNo)
+					.collect(Collectors.toList());
+			User user = searchUser.get(0);
+			int idxRent = frame.getpUserList().getList().indexOf(user);
+			frame.getpUserList().table.setRowSelectionInterval(idxRent, idxRent);
 			
 		}
 		
@@ -143,7 +145,5 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	public BookRentalTablePanel getpBookRentalList() {
 		return pBookRentalList;
 	}
-
-	
 	
 }
