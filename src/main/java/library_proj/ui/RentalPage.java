@@ -23,6 +23,7 @@ import library_proj.ui.content.BookDetailPanel;
 import library_proj.ui.content.SearchBookComboBoxForRent;
 import library_proj.ui.content.SearchUserComboBoxForRent;
 import library_proj.ui.content.UserDetailPanel;
+import library_proj.ui.content.list.BookTablePanel;
 import library_proj.ui.content.list.BookTablePanelForRent;
 import library_proj.ui.content.list.UserTablePanelForRent;
 
@@ -33,7 +34,6 @@ public class RentalPage extends JFrame implements ActionListener {
 	private UserService userService;
 	private BookService bookService;
 	private RentalService rentService;
-//	private RentalStatusService rentalService;
 	private UserTablePanelForRent pUserList;
 	private BookTablePanelForRent pBookList;
 	private UserDetailPanel pUserDetail;
@@ -182,7 +182,6 @@ public class RentalPage extends JFrame implements ActionListener {
 	public void setpBookList(BookTablePanelForRent pBookList) {
 		this.pBookList = pBookList;
 	}
-	
 	
 }
 

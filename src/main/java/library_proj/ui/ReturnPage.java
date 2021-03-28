@@ -6,8 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,12 +18,14 @@ import javax.swing.border.LineBorder;
 
 import library_proj.dto.Book;
 import library_proj.dto.User;
+import library_proj.service.BookService;
 import library_proj.service.ReturnService;
 import library_proj.service.UserService;
 import library_proj.ui.content.BookDetailPanel;
 import library_proj.ui.content.SearchUserComboBoxForReturn;
 import library_proj.ui.content.UserDetailPanel;
 import library_proj.ui.content.list.BookRentalTablePanelForReturn;
+import library_proj.ui.content.list.BookTablePanel;
 import library_proj.ui.content.list.UserTablePanelForReturn;
 
 @SuppressWarnings("serial")
@@ -40,10 +40,14 @@ public class ReturnPage extends JFrame implements ActionListener {
 	private BookRentalTablePanelForReturn pBookRentalList;
 	private BookDetailPanel pBookRentalDetail;
 	private JButton btnReturn;
+	private BookService bookService;
+	private BookTablePanel pBookListMain;
 	
 	public ReturnPage() {
 		userService = new UserService();
+		bookService = new BookService();
 		returnService = new ReturnService();
+		pBookListMain = new BookTablePanel();
 		initialize();
 	}
 	private void initialize() {
@@ -149,6 +153,10 @@ public class ReturnPage extends JFrame implements ActionListener {
 		
 		pUserDetail.clearTf();
 		pBookRentalDetail.clearTf();
+		
+		
+		pBookListMain.setService(bookService);
+		pBookListMain.loadData();
 	}
 	public UserTablePanelForReturn getpUserList() {
 		return pUserList;
@@ -162,6 +170,13 @@ public class ReturnPage extends JFrame implements ActionListener {
 	public void setpBookRentalList(BookRentalTablePanelForReturn pBookRentalList) {
 		this.pBookRentalList = pBookRentalList;
 	}
+	public BookTablePanel getpBookListMain() {
+		return pBookListMain;
+	}
+	public void setpBookListMain(BookTablePanel pBookListMain) {
+		this.pBookListMain = pBookListMain;
+	}
+	
 	
 	
 }

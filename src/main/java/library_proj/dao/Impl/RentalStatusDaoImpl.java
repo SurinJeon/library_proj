@@ -90,7 +90,7 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 	@Override
 	public List<RentalStatus> selectRentalStatusByUserNo(User user) {
 		String sql = "select rentalno, bookno, booktitle, rentaldate, userreturndate, delaydate"
-				+ " from vw_all where userno = ?";
+				+ " from vw_all where userno = ? and userreturndate is null";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
@@ -114,7 +114,7 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 	@Override
 	public RentalStatus selectRentalStatusByBookNo(Book book) {
 		String sql = "select rentalno, bookno, booktitle, userno, rentaldate, userreturndate, delaydate"
-				+ " from vw_all where bookno = ?";
+				+ " from vw_all where bookno = ? and userreturndate is null";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
@@ -134,8 +134,8 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 	
 	@Override
 	public RentalStatus selectRentalStatusByBookNoBookView(Book book) {
-		String sql = "select bookno, booktitle, userno, isRented, bookcategory, categoryname, count, rentalrange"
-				+ " from vw_all where bookno = ?";
+		String sql = "select bookno, booktitle, userno, isRented, bookcategory, categoryname, count, rentalrange, userreturndate"
+				+ " from vw_all where bookno = ? and userreturndate is null";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
@@ -155,14 +155,7 @@ public class RentalStatusDaoImpl implements RentalStatusDao {
 	
 
 	private RentalStatus getRentalStatusForView(ResultSet rs) {
-		/*
-		 * int rentalNo = 0;
-		Book bookNo = null;
-		User userNo = null;
-		Date rentalDate = null;
-		Date userReturnDate = null;
-		int delayDate = 0;
-		 */
+
 		int rentalNo = 0;
 		Book bookNo = null;
 		User userNo = null;

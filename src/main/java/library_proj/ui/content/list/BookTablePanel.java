@@ -148,6 +148,7 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 				frame.getpBookRentalDetail().setBook(bookDetail);
 				
 				//bookRentalList 뜨게하기
+				System.out.println(user.getUserNo().getUserNo());
 				List<RentalStatus> list = rsService.showRentalBooks(new User(user.getUserNo().getUserNo()));
 				frame.getpBookRentalList().setList(list);
 				frame.getpBookRentalList().setList();

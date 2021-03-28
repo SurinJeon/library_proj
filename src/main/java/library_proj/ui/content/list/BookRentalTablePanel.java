@@ -64,7 +64,6 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 	}
 
 	public void setService(RentalStatusService service) {
-//		service = new RentalStatusService();
 		this.service = service;
 	}
 	
@@ -95,6 +94,7 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 			setBookRentalListAndDetail(bookNo, bookDetail, frame, list);
 			
 			frame.setVisible(true);
+//			frame.setpBookListMain(pBookListMain);
 			
 			//회원/도서목록 select되게 해+야함
 		}

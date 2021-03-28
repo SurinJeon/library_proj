@@ -104,6 +104,9 @@ public class MainPage extends JFrame implements ActionListener {
 		pBookRentalList = pUserList.getpBookRentalList();
 		pBookRentalList.setService(rentalService);
 		contentPane.add(pBookRentalList, BorderLayout.SOUTH);
+		
+	
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -125,6 +128,7 @@ public class MainPage extends JFrame implements ActionListener {
 	
 	protected void actionPerformedBtnReturn(ActionEvent e) {
 		ReturnPage frame = new ReturnPage();
+		frame.setpBookListMain(pBookList);
 		frame.setVisible(true);
 	}
 	
@@ -132,5 +136,7 @@ public class MainPage extends JFrame implements ActionListener {
 		UserMngPage frame = new UserMngPage();
 		frame.setVisible(true);
 	}
+	
+	
 	
 }

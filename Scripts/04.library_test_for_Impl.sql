@@ -135,3 +135,12 @@ update rentalstatus r left join book b on r.bookno = b.bookno
 select * from rentalstatus;
 select * from book;
 select * from vw_all;
+
+
+select rentalno, bookno, booktitle, rentaldate, userreturndate, delaydate from vw_all where userno = 12001 and userreturndate is null;
+
+select rentalno, bookno, booktitle, userno, rentaldate, userreturndate, delaydate
+ from vw_all where bookno = '40001-1' and userreturndate is null;
+ 
+select bookno, booktitle, userno, isRented, bookcategory, categoryname, count, rentalrange, userreturndate 
+ from vw_all where bookno = '40001-1' and userreturndate is null;
