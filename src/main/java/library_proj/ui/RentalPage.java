@@ -41,7 +41,7 @@ public class RentalPage extends JFrame implements ActionListener {
 	private JButton btnRent;
 	private SearchUserComboBoxForRent pCmbuser;
 	private SearchBookComboBoxForRent pCmbBook;
-	
+	private BookTablePanel pBookListMain;
 	
 	public RentalPage() {
 		userService = new UserService();
@@ -153,6 +153,8 @@ public class RentalPage extends JFrame implements ActionListener {
 		
 		JOptionPane.showMessageDialog(null, "대여가 완료되었습니다.");
 		
+		pBookListMain.loadData();
+		
 		pUserDetail.clearTf();
 		pBookDetail.clearTf();
 		
@@ -182,6 +184,11 @@ public class RentalPage extends JFrame implements ActionListener {
 	public void setpBookList(BookTablePanelForRent pBookList) {
 		this.pBookList = pBookList;
 	}
+	public void setpBookListMain(BookTablePanel pBookListMain) {
+		this.pBookListMain = pBookListMain;
+	}
+
+	
 	
 }
 

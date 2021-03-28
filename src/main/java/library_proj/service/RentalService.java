@@ -11,7 +11,6 @@ import library_proj.util.JdbcUtil;
 public class RentalService {
 
 	public void transRental(User user, Book book) {
-//		String bookSql = "insert into rentalstatus values (null, '40005-3', 12007, curdate(), null, default(delaydate))";
 		String bookSql = "insert into rentalstatus values (null, ?, ?, curdate(), null, default(delaydate))";
 		String rentalstatusSql = "update book set isRented = 0 where bookno = ?";
 		

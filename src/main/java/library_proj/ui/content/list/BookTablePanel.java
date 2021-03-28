@@ -114,8 +114,10 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 			String bookTitle = (String)table.getValueAt(idx, 1);
 			Book bookDetail = service.showBooksByNoForDetail(new Book(bookNo));
 			
+			
 			if (bookDetail != null && bookDetail.getIsRented() != 0) {
 				RentalPage frame = new RentalPage();
+				frame.setpBookListMain(this);
 				frame.getpBookDetail().setBook(bookDetail);
 				frame.setVisible(true);
 				
@@ -130,6 +132,7 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 				RentalStatus user = rsService.showUserByBookTitleNoView(new Book(bookNo));
 				
 				ReturnPage frame = new ReturnPage();
+				frame.setpBookListMain(this);
 				
 				// user 찾아서 셀 선택되게 하기
 				List<User> searchUser = frame.getpUserList().getList()
@@ -148,7 +151,6 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 				frame.getpBookRentalDetail().setBook(bookDetail);
 				
 				//bookRentalList 뜨게하기
-				System.out.println(user.getUserNo().getUserNo());
 				List<RentalStatus> list = rsService.showRentalBooks(new User(user.getUserNo().getUserNo()));
 				frame.getpBookRentalList().setList(list);
 				frame.getpBookRentalList().setList();
