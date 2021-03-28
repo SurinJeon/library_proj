@@ -104,7 +104,6 @@ public class RentalPage extends JFrame implements ActionListener {
 		contentPane.add(pBtn, BorderLayout.SOUTH);
 		
 		btnRent = new JButton("대여하기");
-//		btnRent.setEnabled(false);
 		btnRent.addActionListener(this);
 		showBtnRent();
 		pBtn.add(btnRent);
@@ -153,12 +152,11 @@ public class RentalPage extends JFrame implements ActionListener {
 		
 		JOptionPane.showMessageDialog(null, "대여가 완료되었습니다.");
 		
-		pBookListMain.loadData();
-		
 		pUserDetail.clearTf();
 		pBookDetail.clearTf();
 		
-		
+		pBookListMain.setService(bookService);
+		pBookListMain.loadData();
 	}
 	public UserDetailPanel getpUserDetail() {
 		return pUserDetail;

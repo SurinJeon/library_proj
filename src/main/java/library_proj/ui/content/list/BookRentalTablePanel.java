@@ -23,9 +23,9 @@ import library_proj.ui.content.UserDetailPanel;
 public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus> implements MouseListener{
 	private RentalStatusService service;
 	private UserService userService;
-	private UserDetailPanel pUserDetail;
+//	private UserDetailPanel pUserDetail;
 	private BookService bookService;
-//	private ReturnSearchService rsService;
+	private BookTablePanel pBookListMain;
 	
 	public BookRentalTablePanel() {
 		userService = new UserService();
@@ -93,8 +93,8 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 			
 			setBookRentalListAndDetail(bookNo, bookDetail, frame, list);
 			
+			frame.setpBookListMain(pBookListMain);
 			frame.setVisible(true);
-//			frame.setpBookListMain(pBookListMain);
 			
 			//회원/도서목록 select되게 해+야함
 		}
@@ -151,4 +151,9 @@ public class BookRentalTablePanel extends AbstractCustomTablePanel<RentalStatus>
 	public void mouseExited(MouseEvent e) {
 		
 	}
+
+	public void setpBookListMain(BookTablePanel pBookListMain) {
+		this.pBookListMain = pBookListMain;
+	}
+	
 }

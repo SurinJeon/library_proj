@@ -32,6 +32,7 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	private List<RentalStatus> rentList;
 	private BookRentalTablePanel pBookRentalList;
 	private UserDetailPanel pUserDetail;
+	private BookTablePanel pBookListMain;
 	
 	public UserTablePanel() {
 		table.addMouseListener(this);
@@ -84,8 +85,10 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 		
 			User userDetail = service.showUserByUserNoForDetail(new User(userNo));
 			RentalPage frame = new RentalPage();
-			frame.setVisible(true);
+			frame.setpBookListMain(pBookListMain);
 			frame.getpUserDetail().setUser(userDetail);
+			frame.setVisible(true);
+			
 			
 			
 			List<User> searchUser = frame.getpUserList().getList()
@@ -145,5 +148,11 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 	public BookRentalTablePanel getpBookRentalList() {
 		return pBookRentalList;
 	}
+
+	public void setpBookListMain(BookTablePanel pBookListMain) {
+		this.pBookListMain = pBookListMain;
+	}
+	
+	
 	
 }
