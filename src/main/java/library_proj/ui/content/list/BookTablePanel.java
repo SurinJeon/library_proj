@@ -27,11 +27,11 @@ import library_proj.ui.ReturnPage;
 public class BookTablePanel extends AbstractCustomTablePanel<Book> implements MouseListener{
 
 	private BookService service;
-	private RentalStatusService rsService;
+	private RentalStatusService rentalStatusService;
 	private UserService userService;
 	
 	public BookTablePanel() {
-		rsService = new RentalStatusService();
+		rentalStatusService = new RentalStatusService();
 		userService = new UserService();
 		table.addMouseListener(this);
 		
@@ -129,10 +129,11 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 				frame.getpBookList().table.setRowSelectionInterval(idxRent, idxRent);
 				
 			} else {
-				RentalStatus user = rsService.showUserByBookTitleNoView(new Book(bookNo));
+				RentalStatus user = rentalStatusService.showUserByBookTitleNoView(new Book(bookNo));
 				
 				ReturnPage frame = new ReturnPage();
 				frame.setpBookListMain(this);
+				
 				
 				// user 찾아서 셀 선택되게 하기
 				List<User> searchUser = frame.getpUserList().getList()
@@ -151,7 +152,7 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 				frame.getpBookRentalDetail().setBook(bookDetail);
 				
 				//bookRentalList 뜨게하기
-				List<RentalStatus> list = rsService.showRentalBooks(new User(user.getUserNo().getUserNo()));
+				List<RentalStatus> list = rentalStatusService.showRentalBooks(new User(user.getUserNo().getUserNo()));
 				frame.getpBookRentalList().setList(list);
 				frame.getpBookRentalList().setList();
 				

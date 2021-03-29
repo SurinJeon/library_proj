@@ -136,6 +136,7 @@ select * from rentalstatus;
 select * from book;
 select * from vw_all;
 
+update book set isRented = 1 where bookno = '40005-2' 
 
 select rentalno, bookno, booktitle, rentaldate, userreturndate, delaydate from vw_all where userno = 12001 and userreturndate is null;
 

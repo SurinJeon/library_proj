@@ -16,6 +16,7 @@ import javax.swing.border.LineBorder;
 
 import library_proj.dto.Book;
 import library_proj.dto.User;
+import library_proj.exception.RentalException;
 import library_proj.service.BookService;
 import library_proj.service.RentalService;
 import library_proj.service.UserService;
@@ -47,8 +48,8 @@ public class RentalPage extends JFrame implements ActionListener {
 		userService = new UserService();
 		bookService = new BookService();
 		rentService = new RentalService();
+		
 		initialize();
-//		btnRent.setEnabled(false);
 	}
 	private void initialize() {
 		setTitle("대출화면");
@@ -133,13 +134,18 @@ public class RentalPage extends JFrame implements ActionListener {
 		}
 	}
 	
-	protected void actionPerformedBtnRent(ActionEvent e) {
+	protected void actionPerformedBtnRent(ActionEvent e){
 		btnRent.setEnabled(true);
 		System.out.println(pUserDetail.getUser());
 		User user = pUserDetail.getUser();
 		Book book = pBookDetail.getBook();
-		
+		System.out.println(book);
+		try {
 		if(user != null && book != null) {
+			System.out.println(book.getIsRented());
+			if (book.getIsRented() == 0) {
+				throw new RentalException("이미 대출된 도서입니다.");
+			}
 			btnRent.setEnabled(true);
 			rentService.transRental(user, book);
 		} else {
@@ -152,11 +158,14 @@ public class RentalPage extends JFrame implements ActionListener {
 		
 		JOptionPane.showMessageDialog(null, "대여가 완료되었습니다.");
 		
-		pUserDetail.clearTf();
-		pBookDetail.clearTf();
-		
 		pBookListMain.setService(bookService);
 		pBookListMain.loadData();
+		} catch (RentalException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			pUserDetail.clearTf();
+			pBookDetail.clearTf();
+		}
 	}
 	public UserDetailPanel getpUserDetail() {
 		return pUserDetail;
@@ -185,7 +194,6 @@ public class RentalPage extends JFrame implements ActionListener {
 	public void setpBookListMain(BookTablePanel pBookListMain) {
 		this.pBookListMain = pBookListMain;
 	}
-
 	
 	
 }

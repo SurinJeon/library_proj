@@ -11,15 +11,17 @@ import javax.swing.border.LineBorder;
 
 import library_proj.dto.Book;
 import library_proj.dto.BookCategory;
+import library_proj.service.BookService;
 
 @SuppressWarnings("serial")
 public class BookDetailPanel extends JPanel {
 	private JTextField tfBookTitle;
 	private JTextField tfBookNo;
 	private JTextField tfBookCategory;
+	private BookService bookService;
 
 	public BookDetailPanel() {
-
+		bookService = new BookService();
 		initialize();
 	}
 	private void initialize() {
@@ -73,9 +75,10 @@ public class BookDetailPanel extends JPanel {
 	
 	public Book getBook() {
 		String bookNo = tfBookNo.getText();
-		String bookTitle = tfBookTitle.getText();
-		String bookCategoryName = tfBookCategory.getText();
-		return new Book(bookNo, bookTitle, new BookCategory(bookCategoryName));
+		
+		Book book = bookService.showBooksByNoForDetail(new Book(bookNo));
+		
+		return book;
 	}
 	
 	// validcheck 필요!!!

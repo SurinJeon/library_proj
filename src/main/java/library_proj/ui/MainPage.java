@@ -27,7 +27,7 @@ public class MainPage extends JFrame implements ActionListener {
 	private JButton btnRent;
 	private JButton btnReturn;
 	private UserService userService;
-	private RentalStatusService rentalService;
+	private RentalStatusService rentalStatusService;
 	private BookService bookService;
 	private UserTablePanel pUserList;
 	private BookRentalTablePanel pBookRentalList;
@@ -36,8 +36,8 @@ public class MainPage extends JFrame implements ActionListener {
 	
 	public MainPage() {
 		userService = new UserService();
-		rentalService = new RentalStatusService();
 		bookService = new BookService();
+		rentalStatusService = new RentalStatusService();
 
 		initialize();
 	}
@@ -102,7 +102,7 @@ public class MainPage extends JFrame implements ActionListener {
 		pBook.add(pBookList, BorderLayout.CENTER);
 
 		pBookRentalList = pUserList.getpBookRentalList();
-		pBookRentalList.setService(rentalService);
+		pBookRentalList.setService(rentalStatusService);
 		contentPane.add(pBookRentalList, BorderLayout.SOUTH);
 		
 		pUserList.setpBookListMain(pBookList);	
