@@ -1,5 +1,6 @@
 package library_proj.ui.content.list;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ public class UserTablePanel extends AbstractCustomTablePanel<User> implements Mo
 			User user = searchUser.get(0);
 			int idxRent = frame.getpUserList().getList().indexOf(user);
 			frame.getpUserList().table.setRowSelectionInterval(idxRent, idxRent);
+			frame.getpUserList().table.scrollRectToVisible(new Rectangle(table.getCellRect(idxRent, 0, true)));
 			
 		}
 		
