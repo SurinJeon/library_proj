@@ -41,7 +41,7 @@ public class BookTablePanel extends AbstractCustomTablePanel<Book> implements Mo
 	protected void setAlignAndWidth() {
 		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2);
 		setTableCellWidth(150, 400, 200);
-		setTableCellCondition(0, 1, 2);
+		setTableCellCondition(2);
 	}
 
 	@Override

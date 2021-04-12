@@ -19,13 +19,14 @@ import library_proj.dto.Book;
 import library_proj.dto.BookCategory;
 import library_proj.dto.SubBookTitle;
 import library_proj.service.BookService;
-import library_proj.ui.content.list.BookTablePanel;
+import library_proj.service.RentalService;
 import library_proj.ui.content.list.BookTablePanelForRent;
 import library_proj.ui.exception.NotAvailableException;
 
 @SuppressWarnings("serial")
 public class SearchBookComboBoxForRent extends JPanel implements ActionListener {
 	private BookService service;
+	private RentalService rentalService;
 	private JTextField tfSearchBook;
 	private JComboBox<String> cmbSearchBook;
 	private BookTablePanelForRent pBookList;
