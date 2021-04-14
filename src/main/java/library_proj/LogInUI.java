@@ -73,15 +73,14 @@ public class LogInUI extends JFrame implements ActionListener {
 		try {
 			Manager mng = pLogIn.getManager();
 			Manager searchMn = service.selectManagerById(mng);
-
-			if( mng != null) {
+			if( searchMn != null) {
 				if(mng.getMngAccount().equals(searchMn.getMngAccount()) && mng.getPasswd().equals(searchMn.getPasswd())) {
 					rentalService.updateRentalStatusLogIn(); // 연체일 update
 					
 					MainPage frame = new MainPage();
 					frame.setVisible(true);
 					dispose();
-				} else {
+				} else{
 					JOptionPane.showMessageDialog(null, "잘못된 비밀번호입니다.", "로그인 실패", JOptionPane.ERROR_MESSAGE);
 				}
 			} else {
